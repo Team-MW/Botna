@@ -69,6 +69,15 @@
 .menu-toggle {
   display: none;
   color: var(--white);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  transition: var(--transition);
+}
+
+.menu-toggle:hover {
+  color: var(--primary);
 }
 
 /* Hero */
@@ -93,7 +102,7 @@
   width: 100%;
   height: 100%;
   background: rgba(0, 0, 0, 0.5);
-  background: linear-gradient(180deg, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.6) 100%);
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.6) 100%);
 }
 
 .hero-content {
@@ -276,7 +285,8 @@
 
 .gallery-img-wrapper {
   overflow: hidden;
-  border-radius: 4px; /* Slight rounding like in the image */
+  border-radius: 4px;
+  /* Slight rounding like in the image */
   height: 280px;
 }
 
@@ -551,17 +561,17 @@
     grid-template-columns: 1fr;
     text-align: center;
   }
-  
+
   .footer-col {
     display: flex;
     flex-direction: column;
     align-items: center;
   }
-  
+
   .footer-brand-col {
     align-items: center;
   }
-  
+
   .footer-socials {
     justify-content: center;
   }
@@ -569,27 +579,69 @@
 
 /* Responsive */
 @media (max-width: 1024px) {
-  .hero-title { font-size: 6rem; }
-  .hero-subtitle { font-size: 2.5rem; }
-  .reviews-layout { flex-direction: column; text-align: center; }
-  .reviews-summary { max-width: 100%; }
-  .stars-large { justify-content: center; }
-  .maps-grid { grid-template-columns: 1fr; }
+  .hero-title {
+    font-size: 6rem;
+  }
+
+  .hero-subtitle {
+    font-size: 2.5rem;
+  }
+
+  .reviews-layout {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .reviews-summary {
+    max-width: 100%;
+  }
+
+  .stars-large {
+    justify-content: center;
+  }
+
+  .maps-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 @media (max-width: 768px) {
-  .nav-links { display: none; }
-  .menu-toggle { display: block; }
-  .hero-title { font-size: 4rem; }
-  .hero-subtitle { font-size: 2rem; }
-  .hero-locations-grid { grid-template-columns: 1fr 1fr; }
-  .section-header h2, .section-title { font-size: 2.2rem; }
+  .nav-links {
+    display: none;
+  }
+
+  .menu-toggle {
+    display: block;
+  }
+
+  .hero-title {
+    font-size: 4rem;
+  }
+
+  .hero-subtitle {
+    font-size: 2rem;
+  }
+
+  .hero-locations-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .section-header h2,
+  .section-title {
+    font-size: 2.2rem;
+  }
 }
 
 @media (max-width: 480px) {
-  .hero-locations-grid { grid-template-columns: 1fr; }
-  .hero-title { font-size: 3rem; }
+  .hero-locations-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-title {
+    font-size: 3rem;
+  }
 }
+
 /* City Detail Page */
 .city-detail-page {
   padding-top: 0;
@@ -666,7 +718,7 @@
   object-fit: cover;
   border-radius: 8px;
   border: 1px solid var(--glass-border);
-  box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
 }
 
 .carte-info {
@@ -696,10 +748,19 @@
 }
 
 @media (max-width: 768px) {
-  .city-hero-content h1 { font-size: 3rem; }
-  .city-hero { height: 50vh; }
-  .menu-card { height: 400px; }
+  .city-hero-content h1 {
+    font-size: 3rem;
+  }
+
+  .city-hero {
+    height: 50vh;
+  }
+
+  .menu-card {
+    height: 400px;
+  }
 }
+
 /* City Detail Hero Alignment */
 .city-hero-main {
   display: flex;
@@ -730,9 +791,15 @@
 }
 
 @media (max-width: 768px) {
-  .city-hero-main .hero-title { font-size: 4rem; }
-  .city-hero-main .hero-subtitle { font-size: 1.2rem; }
+  .city-hero-main .hero-title {
+    font-size: 4rem;
+  }
+
+  .city-hero-main .hero-subtitle {
+    font-size: 1.2rem;
+  }
 }
+
 .city-title {
   font-size: 8rem;
   font-weight: 800;
@@ -744,8 +811,11 @@
 }
 
 @media (max-width: 768px) {
-  .city-title { font-size: 4rem; }
+  .city-title {
+    font-size: 4rem;
+  }
 }
+
 /* City FAQ Section */
 .city-faq-section {
   margin-top: 100px;
@@ -788,6 +858,7 @@
     grid-template-columns: 1fr;
   }
 }
+
 /* Legal Page Styles */
 .legal-page {
   padding-bottom: 100px;
@@ -833,6 +904,7 @@
     padding: 30px;
   }
 }
+
 /* Menu Viewer */
 .menu-viewer {
   width: 100%;
@@ -847,6 +919,7 @@
     height: 500px;
   }
 }
+
 /* Video Background */
 .video-background-container {
   position: absolute;
@@ -861,9 +934,11 @@
 
 .video-background-container iframe {
   width: 100vw;
-  height: 56.25vw; /* 16:9 aspect ratio */
+  height: 56.25vw;
+  /* 16:9 aspect ratio */
   min-height: 100vh;
-  min-width: 177.77vh; /* 16:9 aspect ratio */
+  min-width: 177.77vh;
+  /* 16:9 aspect ratio */
   position: absolute;
   top: 50%;
   left: 50%;
@@ -871,9 +946,11 @@
   filter: brightness(0.6) saturate(1.2);
 }
 
-.hero-content, .hero-overlay {
+.hero-content,
+.hero-overlay {
   z-index: 10;
 }
+
 /* Video Loader Styles */
 .video-loader {
   position: absolute;
@@ -909,9 +986,15 @@
 }
 
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
 }
+
 /* Global Loader */
 .global-loader {
   position: fixed;
@@ -944,6 +1027,7 @@
   visibility: visible;
   transition: opacity 0.8s ease-in-out;
 }
+
 /* Menu Page Split View */
 .menu-page-container {
   padding: 30px;
@@ -973,21 +1057,23 @@
     padding: 15px;
   }
 }
+
 /* Menu Image Display */
 .menu-card-img {
   width: 100%;
   height: auto;
   border-radius: 8px;
   display: block;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
 }
+
 /* PDF Page Rendering */
 .pdf-page-container {
   min-height: 400px;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(255,255,255,0.05);
+  background: rgba(255, 255, 255, 0.05);
   border-radius: 8px;
   overflow: hidden;
 }
@@ -999,4 +1085,192 @@
   border-left: 4px solid var(--primary);
   border-radius: 50%;
   animation: spin 1s linear infinite;
+}
+
+/* --- MOBILE OPTIMIZATION --- */
+
+@media (max-width: 968px) {
+  .nav-container {
+    padding: 0 20px;
+  }
+
+  /* Logo scaling in Nav */
+  .logo-small img {
+    width: 80px !important;
+  }
+
+  .nav-links {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 280px;
+    height: 100vh;
+    background: var(--primary-navy);
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    justify-content: flex-start;
+    padding: 100px 40px;
+    gap: 30px !important;
+    transform: translateX(100%);
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 2000;
+    box-shadow: -10px 0 50px rgba(0, 0, 0, 0.8);
+    display: flex !important; /* Ensure it's flex when it's supposed to be visible */
+  }
+
+  .nav-links.open {
+    transform: translateX(0);
+  }
+
+  .nav-links a {
+    font-size: 1.1rem;
+    font-weight: 600;
+    width: 100%;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+
+  .menu-toggle {
+    display: flex !important;
+    z-index: 3000;
+  }
+
+  /* Hero Section Mobile Perfection */
+  .hero.main-hero {
+    padding-top: 0; /* Background must stay at 0 to cover the whole screen */
+    height: 100vh;
+    overflow: hidden;
+  }
+
+  .hero-content {
+    padding: 80px 20px 20px 20px; /* Space for Navbar here instead */
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 30px;
+  }
+
+  .hero-logo-container {
+    margin: 0 auto;
+    flex: 0 0 auto;
+  }
+
+  .hero-logo-container img {
+    width: 65vw !important;
+    max-width: 260px;
+    filter: drop-shadow(0 10px 20px rgba(0,0,0,0.5));
+  }
+
+  .hero-locations-grid {
+    grid-template-columns: repeat(2, 1fr); /* Back to 2 columns but smaller */
+    gap: 10px;
+    margin-top: 10px;
+    padding: 0 5%;
+    width: 100%;
+    margin-bottom: 0;
+  }
+
+  .location-card {
+    padding: 12px 8px;
+    text-align: center;
+    min-height: auto;
+  }
+
+  .location-header {
+    justify-content: center;
+    gap: 6px;
+    margin-bottom: 4px;
+    flex-direction: row-reverse;
+  }
+
+  .location-name {
+    font-size: 0.65rem;
+    padding: 2px 8px;
+  }
+
+  .location-body p {
+    font-size: 0.7rem;
+    line-height: 1.2;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .city-hero-main .brand-logo {
+    width: 180px !important;
+  }
+
+  .city-title {
+    font-size: 2.8rem;
+    margin-bottom: 0.5rem;
+  }
+
+  /* Gallery and Sections */
+  .gallery-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+
+  .section-label {
+    margin-bottom: 1rem;
+  }
+
+  /* Footer stacking */
+  .footer-grid {
+    grid-template-columns: 1fr;
+    text-align: center;
+    gap: 40px;
+  }
+
+  .footer-col ul {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .contact-info {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-logo-container img {
+    width: 85vw !important;
+  }
+
+  .city-title {
+    font-size: 2.2rem;
+  }
+
+  .gallery-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Brand Logo Responsiveness */
+.brand-logo {
+  width: var(--logo-size, 150px);
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+@media (max-width: 1024px) {
+  .brand-logo {
+    width: min(calc(var(--logo-size) * 0.7), 100%) !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .brand-logo {
+    width: min(calc(var(--logo-size) * 0.5), 100%) !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .brand-logo {
+    width: min(calc(var(--logo-size) * 0.4), 100%) !important;
+  }
 }

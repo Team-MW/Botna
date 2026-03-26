@@ -46,9 +46,9 @@ const Navbar = ({ onCitySelect, onHomeClick, cities }) => {
 
         <div className={`nav-links ${isMenuOpen ? 'open' : ''}`}>
           {navLinks.map((link) => (
-            <a 
-              key={link.name} 
-              href={link.href || '#'} 
+            <a
+              key={link.name}
+              href={link.href || '#'}
               onClick={(e) => {
                 if (link.type === 'city') {
                   e.preventDefault();
@@ -76,15 +76,15 @@ const Navbar = ({ onCitySelect, onHomeClick, cities }) => {
 };
 
 const ElephantLogo = ({ size = 150 }) => (
-  <img 
-    src="/logo-botna.png" 
-    alt="BOTNA Logo" 
-    style={{ width: size, height: 'auto', display: 'block' }} 
+  <img
+    src="/logo-botna.png"
+    alt="BOTNA Logo"
+    style={{ width: size, height: 'auto', display: 'block' }}
   />
 );
 
 const LocationCard = ({ name, address, zip, onClick }) => (
-  <motion.div 
+  <motion.div
     whileHover={{ y: -10, scale: 1.02 }}
     whileTap={{ scale: 0.98 }}
     className="location-card glass-card"
@@ -105,10 +105,10 @@ const LocationCard = ({ name, address, zip, onClick }) => (
 const CityDetail = ({ city }) => (
   <div className="city-detail-page">
     <header className="hero">
-      <VideoBackground videoId="h2V2mBBXgj4" onLoaded={() => {}} />
+      <VideoBackground videoId="h2V2mBBXgj4" onLoaded={() => { }} />
       <div className="hero-overlay"></div>
       <div className="hero-content">
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           className="city-hero-main"
@@ -135,14 +135,14 @@ const CityDetail = ({ city }) => (
           <span className="section-label">LA CARTE</span>
           <h2>NOTRE MENU</h2>
         </div>
-        
+
         <div className="carte-display">
           <div className="carte-embed">
             <div className="menu-page-container glass-card">
               <span className="page-label">RECTO / THAÏ</span>
               <PDFPage url={`/dépliant-prépa-${city.pdf}.pdf`} pageNum={1} />
             </div>
-            
+
             <div className="menu-page-container glass-card" style={{ marginTop: '40px' }}>
               <span className="page-label">VERSO / SUSHIS</span>
               <PDFPage url={`/dépliant-prépa-${city.pdf}.pdf`} pageNum={2} />
@@ -184,12 +184,12 @@ const CityDetail = ({ city }) => (
 const LegalNotice = () => (
   <div className="legal-page">
     <header className="hero">
-       <VideoBackground videoId="h2V2mBBXgj4" onLoaded={() => {}} />
-       <div className="hero-overlay"></div>
-       <div className="hero-content">
-          <ElephantLogo size={200} />
-          <h1 className="city-title">Mentions Légales</h1>
-       </div>
+      <VideoBackground videoId="h2V2mBBXgj4" onLoaded={() => { }} />
+      <div className="hero-overlay"></div>
+      <div className="hero-content">
+        <ElephantLogo size={200} />
+        <h1 className="city-title">Mentions Légales</h1>
+      </div>
     </header>
     <section className="legal-content">
       <div className="container glass-card">
@@ -288,48 +288,48 @@ const Hero = ({ onCitySelect }) => {
       <VideoBackground videoId="h2V2mBBXgj4" onLoaded={() => setIsVideoLoaded(true)} />
       <div className="hero-overlay"></div>
       <div className="hero-content">
-      <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
-        className="hero-logo-container"
-      >
-        <div className="hero-logo-row">
-          <ElephantLogo size={600} />
-        </div>
-      </motion.div>
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          className="hero-logo-container"
+        >
+          <div className="hero-logo-row">
+            <ElephantLogo size={600} />
+          </div>
+        </motion.div>
 
-      <div className="hero-locations-grid">
-        <LocationCard 
-          name="Colomiers" 
-          address="42 BOULEVARD VICTOR HUGO, 31770 Colomiers" 
-          onClick={() => onCitySelect('colomiers')}
-        />
-        <LocationCard 
-          name="Beauzelle" 
-          address="18 BOULEVARD DE L'EUROPE, 31700 Beauzelle" 
-          onClick={() => onCitySelect('beauzelle')}
-        />
-        <LocationCard 
-          name="Grenade" 
-          address="6 AV DU PRÉSIDENT KENNEDY, 31330 Grenade" 
-          onClick={() => onCitySelect('grenade')}
-        />
-        <LocationCard 
-          name="Roquettes" 
-          address="1 RUE COLLETTE BESSON, 31120 Roquettes" 
-          onClick={() => onCitySelect('roquettes')}
-        />
+        <div className="hero-locations-grid">
+          <LocationCard
+            name="Colomiers"
+            address="42 BOULEVARD VICTOR HUGO, 31770 Colomiers"
+            onClick={() => onCitySelect('colomiers')}
+          />
+          <LocationCard
+            name="Beauzelle"
+            address="18 BOULEVARD DE L'EUROPE, 31700 Beauzelle"
+            onClick={() => onCitySelect('beauzelle')}
+          />
+          <LocationCard
+            name="Grenade"
+            address="6 AV DU PRÉSIDENT KENNEDY, 31330 Grenade"
+            onClick={() => onCitySelect('grenade')}
+          />
+          <LocationCard
+            name="Roquettes"
+            address="1 RUE COLLETTE BESSON, 31120 Roquettes"
+            onClick={() => onCitySelect('roquettes')}
+          />
+        </div>
       </div>
-    </div>
-  </header>
+    </header>
   );
 };
 
 const History = () => (
   <section className="history-section">
     <div className="container">
-      <motion.div 
+      <motion.div
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         viewport={{ once: true }}
@@ -372,7 +372,7 @@ const Gallery = () => {
         </div>
         <div className="gallery-grid">
           {images.map((img, index) => (
-            <motion.div 
+            <motion.div
               key={index}
               initial={{ opacity: 0, scale: 0.9 }}
               whileInView={{ opacity: 1, scale: 1 }}
@@ -428,20 +428,20 @@ const Reviews = () => (
           <img src="https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg" alt="Google" width="100" />
         </div>
         <div className="reviews-slider">
-          <ReviewCard 
-            name="Chea Mengchou" 
-            date="2025-07-23" 
-            text="Très belle découverte, ouvert... Les plats sont très bon et beaux. Le services est top. Les patrons sont très gentils." 
+          <ReviewCard
+            name="Chea Mengchou"
+            date="2025-07-23"
+            text="Très belle découverte, ouvert... Les plats sont très bon et beaux. Le services est top. Les patrons sont très gentils."
           />
-          <ReviewCard 
-            name="Rayane Oumanou" 
-            date="2025-07-23" 
-            text="Excellente expérience ! Les plats sont savoureux, bien épicés et pleins de saveurs. Le service est rapide et..." 
+          <ReviewCard
+            name="Rayane Oumanou"
+            date="2025-07-23"
+            text="Excellente expérience ! Les plats sont savoureux, bien épicés et pleins de saveurs. Le service est rapide et..."
           />
-          <ReviewCard 
-            name="samy Oumanou" 
-            date="2025-07-23" 
-            text="Vraiment excellent ! Je recommande !" 
+          <ReviewCard
+            name="samy Oumanou"
+            date="2025-07-23"
+            text="Vraiment excellent ! Je recommande !"
           />
         </div>
       </div>
@@ -581,44 +581,44 @@ function App() {
   };
 
   const citiesData = [
-    { 
-      id: 'colomiers', 
-      name: 'Colomiers', 
-      address: '42 Bd Victor Hugo, 31770 Colomiers', 
-      phone: '06 52 27 70 92', 
+    {
+      id: 'colomiers',
+      name: 'Colomiers',
+      address: '42 Bd Victor Hugo, 31770 Colomiers',
+      phone: '06 52 27 70 92',
       pdf: 'Colomiers2',
       faq: [
         { question: "Où manger les meilleurs sushis à Colomiers ?", answer: "Chez BOTNA, nous vous proposons une sélection rigoureuse de sushis frais préparés sur place chaque jour à Colomiers." },
         { question: "Existe-t-il un bon restaurant Thaï à Colomiers ?", answer: "BOTNA Colomiers mélange l'art délicat des sushis japonais avec les saveurs envoûtantes de la cuisine Thaïlandaise traditionnelle." }
       ]
     },
-    { 
-      id: 'beauzelle', 
-      name: 'Beauzelle', 
-      address: '18 Bd de l\'Europe, 31700 Beauzelle', 
-      phone: '06 52 27 70 92', 
+    {
+      id: 'beauzelle',
+      name: 'Beauzelle',
+      address: '18 Bd de l\'Europe, 31700 Beauzelle',
+      phone: '06 52 27 70 92',
       pdf: 'Beauzelle',
       faq: [
         { question: "Quel restaurant choisir à Beauzelle ?", answer: "Découvrez BOTNA Beauzelle : des bowls équilibrés, des sushis fins et des classiques de la cuisine Thaï dans un cadre moderne." },
         { question: "Où trouver des saveurs asiatiques à Beauzelle ?", answer: "Notre restaurant à Beauzelle est l'adresse idéale pour les amateurs de gastronomie asiatique de qualité près de Blagnac." }
       ]
     },
-    { 
-      id: 'grenade', 
-      name: 'Grenade', 
-      address: '6 Av. du Président Kennedy, 31330 Grenade', 
-      phone: '06 52 27 70 92', 
+    {
+      id: 'grenade',
+      name: 'Grenade',
+      address: '6 Av. du Président Kennedy, 31330 Grenade',
+      phone: '06 52 27 70 92',
       pdf: 'Grenade',
       faq: [
         { question: "Où sortir manger en famille à Grenade ?", answer: "BOTNA Grenade vous accueille pour un moment convivial autour de plats généreux, alliant sushis créatifs et classiques thaïlandais." },
         { question: "Restaurant asiatique à Grenade (31) : quelles spécialités ?", answer: "Nous sommes fiers de vous proposer notre Pad Thaï traditionnel et nos plateaux signatures à Grenade." }
       ]
     },
-    { 
-      id: 'roquettes', 
-      name: 'Roquettes', 
-      address: '1 Rue Colette Besson, 31120 Roquettes', 
-      phone: '06 52 27 70 92', 
+    {
+      id: 'roquettes',
+      name: 'Roquettes',
+      address: '1 Rue Colette Besson, 31120 Roquettes',
+      phone: '06 52 27 70 92',
       pdf: 'Lèguevin',
       faq: [
         { question: "Où savourer des sushis de qualité à Roquettes ?", answer: "BOTNA Roquettes est l'adresse incontournable pour les passionnés de poissons frais et de recettes japonaises authentiques." },
@@ -632,22 +632,22 @@ function App() {
   return (
     <div className="App">
       {isLoading && <GlobalLoader />}
-      
+
       <div className={`main-layout ${isLoading ? 'hidden' : 'visible'}`}>
-        <Navbar 
-          onCitySelect={handleCitySelect} 
-          onHomeClick={handleHomeClick} 
+        <Navbar
+          onCitySelect={handleCitySelect}
+          onHomeClick={handleHomeClick}
           cities={citiesData}
         />
-        
+
         {activeView === 'city' && activeCity && (
           <CityDetail city={activeCity} />
         )}
-        
+
         {activeView === 'mentions' && (
           <LegalNotice />
         )}
-        
+
         {activeView === 'home' && (
           <>
             <Hero onCitySelect={handleCitySelect} />
@@ -657,9 +657,9 @@ function App() {
             <Maps />
           </>
         )}
-        <Footer 
-          onCitySelect={handleCitySelect} 
-          onHomeClick={handleHomeClick} 
+        <Footer
+          onCitySelect={handleCitySelect}
+          onHomeClick={handleHomeClick}
           onLegalClick={handleLegalClick}
         />
       </div>
