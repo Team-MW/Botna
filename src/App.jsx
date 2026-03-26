@@ -132,19 +132,19 @@ const CityDetail = ({ city }) => (
     <section className="city-content-section">
       <div className="container">
         <div className="section-header">
-          <span className="section-label">LA CARTE</span>
-          <h2>NOTRE MENU</h2>
+          <span className="section-label">La Carte</span>
+          <h2>Notre Menu</h2>
         </div>
 
         <div className="carte-display">
           <div className="carte-embed">
             <div className="menu-page-container glass-card">
-              <span className="page-label">RECTO / THAÏ</span>
+              <span className="page-label">Recto / Thaï</span>
               <PDFPage url={`/dépliant-prépa-${city.pdf}.pdf`} pageNum={1} />
             </div>
 
             <div className="menu-page-container glass-card" style={{ marginTop: '40px' }}>
-              <span className="page-label">VERSO / SUSHIS</span>
+              <span className="page-label">Verso / Sushis</span>
               <PDFPage url={`/dépliant-prépa-${city.pdf}.pdf`} pageNum={2} />
             </div>
 

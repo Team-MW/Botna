@@ -1419,7 +1419,47 @@
   }
 
   .section-label {
-    margin-bottom: 1rem;
+    margin-bottom: 0.5rem;
+    font-size: 0.75rem;
+  }
+
+  /* Improve Notre Menu Section on Mobile */
+  .city-content-section .section-header {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+
+  .city-content-section .section-header h2 {
+    font-family: 'Itim', cursive !important;
+    font-size: 2.8rem !important;
+    color: var(--primary) !important;
+    text-transform: none !important;
+    margin-top: 5px;
+  }
+
+  .menu-page-container {
+    padding: 20px !important;
+    text-align: center;
+    align-items: center;
+  }
+
+  .page-label {
+    align-self: center !important;
+    margin-bottom: 20px;
+    font-size: 0.9rem;
+  }
+
+  .pdf-page-container {
+    min-height: auto !important;
+    background: transparent !important;
+    width: 100%;
+  }
+
+  .pdf-page-container canvas {
+    width: 100% !important;
+    height: auto !important;
+    border-radius: 8px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
   }
 
   /* Improved Mobile Footer */
