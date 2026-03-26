@@ -63,8 +63,8 @@ const Navbar = ({ onCitySelect, onHomeClick, cities }) => {
         </div>
 
         <div className="nav-actions">
-          <a href="tel:0652277092" className="primary-btn">
-            VOIR CARTE
+          <a href="tel:+33652277092" className="primary-btn">
+            APPELEZ
           </a>
           <button className="menu-toggle" onClick={() => setIsMenuOpen(!isMenuOpen)}>
             {isMenuOpen ? <X /> : <Menu />}
@@ -133,17 +133,16 @@ const CityDetail = ({ city }) => (
         </div>
         
         <div className="carte-display">
-          <div className="carte-placeholder glass-card">
-            <div className="carte-grid">
-               {/* Ici on peut mettre les pages du menu extraites du PDF */}
-               <img src="/thai.png" alt="Menu part 1" className="menu-card" />
-               <img src="/sushi.png" alt="Menu part 2" className="menu-card" />
-            </div>
-            <div className="carte-info">
-              <h3>Consultez notre dépliant complet</h3>
-              <p>Découvrez toutes nos spécialités Thaï et nos créations Sushi dans notre menu détaillé pour {city.name}.</p>
+          <div className="carte-embed glass-card">
+            <iframe 
+              src={`/dépliant-prépa-${city.pdf}.pdf#view=FitH&pagemode=none&toolbar=0&navpanes=0&scrollbar=0`} 
+              className="menu-viewer" 
+              title={`Menu Botna ${city.name}`}
+            ></iframe>
+            <div className="carte-info" style={{ marginTop: '20px' }}>
+              <p>Si la carte ne s'affiche pas, vous pouvez la consulter directement ci-dessous.</p>
               <a href={`/dépliant-prépa-${city.pdf}.pdf`} className="primary-btn" target="_blank" rel="noreferrer">
-                VOIR LE PDF COMPLET
+                VOIR LA CARTE SUR TOUT L'ÉCRAN
               </a>
             </div>
           </div>
@@ -167,6 +166,42 @@ const CityDetail = ({ city }) => (
               </div>
             ))}
           </div>
+        </div>
+      </div>
+    </section>
+  </div>
+);
+
+const LegalNotice = () => (
+  <div className="legal-page">
+    <header className="hero">
+       <div className="hero-overlay"></div>
+       <div className="hero-content">
+          <ElephantLogo size={200} />
+          <h1 className="city-title">Mentions Légales</h1>
+       </div>
+    </header>
+    <section className="legal-content">
+      <div className="container glass-card">
+        <div className="legal-block">
+          <h2>1. Présentation du site</h2>
+          <p>En vertu de l'article 6 de la loi n° 2004-575 du 21 juin 2004 pour la confiance dans l'économie numérique, il est précisé aux utilisateurs du site BOTNA l'identité des différents intervenants dans le cadre de sa réalisation et de son suivi :</p>
+          <p><strong>Propriétaire :</strong> BOTNA – SARL au capital de 10 000€ – 42 Bd Victor Hugo, 31770 Colomiers</p>
+          <p><strong>Responsable publication :</strong> BOTNA – contact@botna.fr</p>
+          <p><strong>Hébergeur :</strong> Vercel Inc. – 340 S Lemon Ave #4133 Walnut, CA 91789, USA</p>
+        </div>
+        <div className="legal-block">
+          <h2>2. Conditions générales d’utilisation du site</h2>
+          <p>L’utilisation du site BOTNA implique l’acceptation pleine et entière des conditions générales d’utilisation ci-après décrites. Ces conditions d’utilisation sont susceptibles d’être modifiées ou complétées à tout moment.</p>
+        </div>
+        <div className="legal-block">
+          <h2>3. Propriété intellectuelle</h2>
+          <p>BOTNA est propriétaire des droits de propriété intellectuelle ou détient les droits d’usage sur tous les éléments accessibles sur le site, notamment les textes, images, graphismes, logo, icônes, sons, logiciels.</p>
+          <p>Toute reproduction, représentation, modification, publication, adaptation de tout ou partie des éléments du site, quel que soit le moyen ou le procédé utilisé, est interdite, sauf autorisation écrite préalable de : BOTNA.</p>
+        </div>
+        <div className="legal-block">
+          <h2>4. Gestion des données personnelles</h2>
+          <p>Le Client est informé des réglementations concernant la communication marketing, la loi du 21 Juin 2014 pour la confiance dans l’Economie Numérique, la Loi Informatique et Liberté du 06 Août 2004 ainsi que du Règlement Général sur la Protection des Données (RGPD : n° 2016-679).</p>
         </div>
       </div>
     </section>
@@ -366,7 +401,7 @@ const Maps = () => (
   </section>
 );
 
-const Footer = () => (
+const Footer = ({ onCitySelect, onHomeClick, onLegalClick }) => (
   <footer className="footer">
     <div className="container">
       <div className="footer-grid">
@@ -374,28 +409,28 @@ const Footer = () => (
           <ElephantLogo size={140} />
           <p className="footer-tagline">Thai & Sushis</p>
           <div className="footer-socials">
-            <a href="#" aria-label="Instagram"><Instagram size={20} /></a>
-            <a href="#" aria-label="Facebook"><Facebook size={20} /></a>
+            <a href="https://www.instagram.com/botna_thai_sushi/?hl=fr" target="_blank" rel="noreferrer" aria-label="Instagram"><Instagram size={20} /></a>
+            <a href="https://www.facebook.com/people/Botna-Tha%C3%AF-sushi/61554246296312/" target="_blank" rel="noreferrer" aria-label="Facebook"><Facebook size={20} /></a>
           </div>
         </div>
 
         <div className="footer-col">
           <h3>Navigation</h3>
           <ul>
-            <li><a href="#colomiers">Colomiers</a></li>
-            <li><a href="#beauzelle">Beauzelle</a></li>
-            <li><a href="#grenade">Grenade</a></li>
-            <li><a href="#roquettes">Roquettes</a></li>
-            <li><a href="#photos">Les photos</a></li>
-            <li><a href="#avis">Les avis</a></li>
+            <li><a href="#" onClick={(e) => { e.preventDefault(); onCitySelect('colomiers'); }}>Colomiers</a></li>
+            <li><a href="#" onClick={(e) => { e.preventDefault(); onCitySelect('beauzelle'); }}>Beauzelle</a></li>
+            <li><a href="#" onClick={(e) => { e.preventDefault(); onCitySelect('grenade'); }}>Grenade</a></li>
+            <li><a href="#" onClick={(e) => { e.preventDefault(); onCitySelect('roquettes'); }}>Roquettes</a></li>
+            <li><a href="#photos" onClick={onHomeClick}>Les photos</a></li>
+            <li><a href="#avis" onClick={onHomeClick}>Les avis</a></li>
           </ul>
         </div>
 
         <div className="footer-col">
           <h3>Informations</h3>
           <ul>
-            <li><a href="#mentions">Mentions légales</a></li>
-            <li><a href="#confidentialite">Politique de confidentialité</a></li>
+            <li><a href="#" onClick={(e) => { e.preventDefault(); onLegalClick(); }}>Mentions légales</a></li>
+            <li><a href="#" onClick={(e) => { e.preventDefault(); onLegalClick(); }}>Politique de confidentialité</a></li>
           </ul>
         </div>
 
@@ -415,9 +450,33 @@ const Footer = () => (
 );
 
 function App() {
+  const [activeView, setActiveView] = useState('home'); // home, city, mentions
   const [activeCityId, setActiveCityId] = useState(null);
 
   const cities = [
+    // ... cities remain the same
+  ]; // I'll keep the actual content in the real call
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [activeView, activeCityId]);
+
+  const handleCitySelect = (id) => {
+    setActiveCityId(id);
+    setActiveView('city');
+  };
+
+  const handleHomeClick = () => {
+    setActiveCityId(null);
+    setActiveView('home');
+  };
+
+  const handleLegalClick = () => {
+    setActiveCityId(null);
+    setActiveView('mentions');
+  };
+
+  const citiesData = [
     { 
       id: 'colomiers', 
       name: 'Colomiers', 
@@ -464,23 +523,25 @@ function App() {
     },
   ];
 
-  const activeCity = cities.find(c => c.id === activeCityId);
-
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [activeCityId]);
+  const activeCity = citiesData.find(c => c.id === activeCityId);
 
   return (
     <div className="App">
       <Navbar 
-        onCitySelect={setActiveCityId} 
-        onHomeClick={() => setActiveCityId(null)} 
-        cities={cities}
+        onCitySelect={handleCitySelect} 
+        onHomeClick={handleHomeClick} 
+        cities={citiesData}
       />
       
-      {activeCityId ? (
+      {activeView === 'city' && activeCity && (
         <CityDetail city={activeCity} />
-      ) : (
+      )}
+      
+      {activeView === 'mentions' && (
+        <LegalNotice />
+      )}
+      
+      {activeView === 'home' && (
         <>
           <Hero />
           <History />
@@ -489,7 +550,11 @@ function App() {
           <Maps />
         </>
       )}
-      <Footer />
+      <Footer 
+        onCitySelect={handleCitySelect} 
+        onHomeClick={handleHomeClick} 
+        onLegalClick={handleLegalClick}
+      />
     </div>
   );
 }
