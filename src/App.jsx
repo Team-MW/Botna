@@ -83,10 +83,13 @@ const ElephantLogo = ({ size = 150 }) => (
   />
 );
 
-const LocationCard = ({ name, address, zip }) => (
+const LocationCard = ({ name, address, zip, onClick }) => (
   <motion.div 
-    whileHover={{ y: -10 }}
+    whileHover={{ y: -10, scale: 1.02 }}
+    whileTap={{ scale: 0.98 }}
     className="location-card glass-card"
+    onClick={onClick}
+    style={{ cursor: 'pointer' }}
   >
     <div className="location-header">
       <span className="location-name">{name}</span>
@@ -277,7 +280,7 @@ const LoadingScreen = () => (
   </div>
 );
 
-const Hero = () => {
+const Hero = ({ onCitySelect }) => {
   const [isVideoLoaded, setIsVideoLoaded] = useState(false);
 
   return (
@@ -300,18 +303,22 @@ const Hero = () => {
         <LocationCard 
           name="Colomiers" 
           address="42 BOULEVARD VICTOR HUGO, 31770 Colomiers" 
+          onClick={() => onCitySelect('colomiers')}
         />
         <LocationCard 
           name="Beauzelle" 
           address="18 BOULEVARD DE L'EUROPE, 31700 Beauzelle" 
+          onClick={() => onCitySelect('beauzelle')}
         />
         <LocationCard 
           name="Grenade" 
           address="6 AV DU PRÉSIDENT KENNEDY, 31330 Grenade" 
+          onClick={() => onCitySelect('grenade')}
         />
         <LocationCard 
           name="Roquettes" 
           address="1 RUE COLLETTE BESSON, 31120 Roquettes" 
+          onClick={() => onCitySelect('roquettes')}
         />
       </div>
     </div>
@@ -643,7 +650,7 @@ function App() {
         
         {activeView === 'home' && (
           <>
-            <Hero />
+            <Hero onCitySelect={handleCitySelect} />
             <History />
             <Gallery />
             <Reviews />
