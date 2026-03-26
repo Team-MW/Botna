@@ -264,10 +264,10 @@ const PDFPage = ({ url, pageNum }) => {
 const VideoBackground = ({ videoId, onLoaded }) => (
   <div className="video-background-container">
     <iframe
-      src={`https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&loop=1&playlist=${videoId}&controls=0&showinfo=0&rel=0&modestbranding=1&playsinline=1`}
+      src={`https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&loop=1&playlist=${videoId}&controls=0&showinfo=0&rel=0&modestbranding=1&playsinline=1&enablejsapi=1`}
       frameBorder="0"
       onLoad={onLoaded}
-      allow="autoplay; fullscreen"
+      allow="autoplay; encrypted-media; fullscreen; picture-in-picture"
       title="Background Video"
     ></iframe>
   </div>

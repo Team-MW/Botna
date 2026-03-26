@@ -180,7 +180,7 @@
 
 .hero-subtitle {
   font-size: 3.5rem;
-  font-family: 'Outfit', sans-serif;
+  
   color: var(--primary);
   margin-top: -10px;
   font-weight: 600;
@@ -264,14 +264,14 @@
   letter-spacing: 0.15em;
   color: var(--primary);
   font-size: 1.2rem;
-  font-family: 'Outfit', sans-serif;
+  
 }
 
 .location-body p {
   font-size: 0.95rem;
   opacity: 0.85;
   line-height: 1.5;
-  font-family: 'Inter', sans-serif;
+  
 }
 
 /* History - Innovative Editorial Layout */
@@ -292,7 +292,7 @@
   color: rgba(255, 255, 255, 0.02);
   pointer-events: none;
   z-index: 1;
-  font-family: 'Outfit', sans-serif;
+  
   letter-spacing: -0.05em;
   white-space: nowrap;
 }
@@ -481,7 +481,7 @@
   font-weight: 800;
   text-align: center;
   color: var(--primary);
-  font-family: 'Outfit', sans-serif;
+  
   letter-spacing: 0.05em;
   text-transform: uppercase;
   margin-top: 10px;
@@ -526,8 +526,11 @@
   display: flex;
   gap: 20px;
   overflow-x: auto;
-  padding: 20px 0;
+  padding: 20px 20px;
   scrollbar-width: none;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  width: 100%;
 }
 
 .reviews-slider::-webkit-scrollbar {
@@ -535,7 +538,7 @@
 }
 
 .review-card {
-  min-width: 340px;
+  min-width: 380px;
   background: var(--glass);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
@@ -543,6 +546,7 @@
   border-radius: 12px;
   border: 1px solid var(--glass-border);
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  scroll-snap-align: center;
 }
 
 .review-header {
@@ -781,6 +785,18 @@
 
   .stars-large {
     justify-content: center;
+  }
+
+  .reviews-slider {
+    padding: 20px 0;
+    margin: 0 -20px; /* Bleed out slightly to the edges for full-width feel */
+    width: calc(100% + 40px);
+  }
+
+  .review-card {
+    min-width: calc(100% - 40px); /* Fill most of the screen width */
+    margin: 0 20px; /* Keep them centered in the viewport */
+    scroll-snap-align: center;
   }
 
   .maps-grid {
