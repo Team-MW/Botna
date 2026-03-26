@@ -328,27 +328,39 @@ const Hero = ({ onCitySelect }) => {
 
 const History = () => (
   <section className="history-section">
+    <div className="section-watermark">BOTNA</div>
     <div className="container">
-      <motion.div
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true }}
-        className="history-content"
-      >
-        <span className="section-label">L'HISTOIRE</span>
-        <p>
-          En 2024, dans la charmante ville de Colomiers, une nouvelle aventure culinaire a débuté avec l'ouverture du restaurant <strong>BOTNA</strong>, un lieu unique où les saveurs de la Thaïlande rencontrent l'art délicat des sushis japonais.
-        </p>
-        <p>
-          Porté par un accueil chaleureux et un engouement grandissant, <strong>BOTNA</strong> poursuit son développement. Début 2025, le restaurant s'installe à <strong>Beauzelle</strong> pour continuer à faire voyager les papilles. Toujours fidèle à son identité, le lieu mêle avec élégance les parfums envoûtants de la cuisine thaïlandaise à la finesse des sushis japonais, dans un cadre moderne où tradition et créativité se rejoignent naturellement.
-        </p>
-        <p>
-          L'histoire ne s'arrête pas là. À <strong>l'été 2025, BOTNA</strong> ouvre les portes d'un nouveau restaurant dans la ville de <strong>Grenade</strong>, marquant une nouvelle étape dans cette aventure gourmande. Chaque ouverture est pensée comme une invitation à découvrir une cuisine métissée, généreuse et sincère, où chaque plat raconte une histoire, entre Asie et Occident.
-        </p>
-        <p>
-          Ainsi, BOTNA devient bien plus qu'un restaurant : une signature culinaire qui s'étend, fidèle à sa promesse d'offrir des expériences gustatives uniques, alliant exigence, authenticité et passion.
-        </p>
-      </motion.div>
+      <div className="history-grid">
+        <motion.div 
+          initial={{ opacity: 0, x: -30 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
+          className="history-visual"
+        >
+          <div className="decorative-circle">
+             <ElephantLogo size={250} />
+          </div>
+        </motion.div>
+        
+        <motion.div
+          initial={{ opacity: 0, x: 30 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
+          className="history-content"
+        >
+          <div className="section-label-container">
+            <span className="section-label">NOTRE HISTOIRE</span>
+          </div>
+          <h2 className="history-title">Une Signature Culinaire Unique</h2>
+          <p>
+            En 2024, à Colomiers, <strong>BOTNA</strong> est né d'une passion : fusionner l'énergie de la Thaïlande et la finesse du Japon.
+          </p>
+          <p>
+            Chaque restaurant, de <strong>Beauzelle</strong> à <strong>Grenade</strong>, est une invitation au voyage, où tradition et créativité s'unissent pour une expérience gustative inoubliable.
+          </p>
+          <div className="history-signature">BOTNA Thai & Sushi</div>
+        </motion.div>
+      </div>
     </div>
   </section>
 );

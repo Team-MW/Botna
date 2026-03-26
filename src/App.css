@@ -226,60 +226,123 @@
   line-height: 1.4;
 }
 
-/* History */
+/* History - Innovative Editorial Layout */
 .history-section {
+  position: relative;
   background-color: var(--navy-dark);
-  text-align: center;
+  padding: 150px 0;
+  overflow: hidden;
 }
 
-.history-content {
-  max-width: 900px;
-  margin: 0 auto;
-  padding: 80px 20px;
-}
-
-.history-content h2 {
-  font-family: 'Kaushan Script', cursive;
-  font-size: 4.5rem;
-  font-weight: 400;
-  letter-spacing: 0.02em;
-  color: var(--primary);
-  margin-bottom: 2.5rem;
-  line-height: 1;
-  text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5);
-}
-
-.history-content p {
+.section-watermark {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 25vw;
+  font-weight: 900;
+  color: rgba(255, 255, 255, 0.02);
+  pointer-events: none;
+  z-index: 1;
   font-family: 'Outfit', sans-serif;
-  font-size: 1.35rem;
-  line-height: 1.8;
-  margin-bottom: 2rem;
-  color: var(--white);
-  opacity: 0.95;
-  font-weight: 300;
+  letter-spacing: -0.05em;
+  white-space: nowrap;
 }
 
-.section-label {
+.history-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+  align-items: center;
+  gap: 80px;
+  position: relative;
+  z-index: 2;
+}
+
+.history-visual {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.decorative-circle {
+  width: 400px;
+  height: 400px;
+  border: 1px solid rgba(234, 179, 8, 0.2);
+  border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 20px;
-  font-family: 'Kaushan Script', cursive;
-  font-weight: 400;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--primary);
-  margin-bottom: 1.5rem;
-  font-size: 1.6rem;
+  position: relative;
 }
 
-.section-label::before,
-.section-label::after {
+.decorative-circle::before {
   content: '';
-  width: 40px;
-  height: 1px;
-  background: var(--primary);
-  opacity: 0.5;
+  position: absolute;
+  width: 110%;
+  height: 110%;
+  border: 1px dashed rgba(234, 179, 8, 0.1);
+  border-radius: 50%;
+  animation: spin 60s linear infinite;
+}
+
+.history-content {
+  text-align: left;
+}
+
+.history-title {
+  font-family: 'Itim', cursive;
+  font-size: 3.5rem !important;
+  color: var(--primary);
+  margin-bottom: 2rem;
+  line-height: 1.2;
+}
+
+.history-content p {
+  font-family: 'Itim', cursive;
+  font-size: 1.4rem;
+  line-height: 1.7;
+  margin-bottom: 1.5rem;
+  opacity: 0.9;
+  max-width: 600px;
+}
+
+.history-signature {
+  font-family: 'Itim', cursive;
+  font-size: 1.8rem;
+  color: var(--primary);
+  opacity: 0.8;
+  margin-top: 30px;
+  border-top: 1px solid rgba(234, 179, 8, 0.2);
+  display: inline-block;
+  padding-top: 15px;
+}
+
+@media (max-width: 968px) {
+  .history-grid {
+    grid-template-columns: 1fr;
+    gap: 50px;
+    text-align: center;
+  }
+  
+  .history-content {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .decorative-circle {
+    width: 280px;
+    height: 280px;
+  }
+  
+  .section-watermark {
+    font-size: 40vw;
+  }
+
+  .history-title {
+    font-size: 2.8rem !important;
+  }
 }
 
 /* Gallery */

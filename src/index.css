@@ -10,8 +10,8 @@
   --text-grey: #bebebe;
   --glass: rgba(1, 30, 49, 0.85);
   --glass-border: rgba(255, 255, 255, 0.1);
-  --font-heading: 'Outfit', sans-serif;
-  --font-body: 'Inter', sans-serif;
+  --font-heading: 'Itim', cursive;
+  --font-body: 'Itim', cursive;
   --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
