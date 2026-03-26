@@ -83,7 +83,7 @@ const ElephantLogo = ({ size = 150 }) => (
   />
 );
 
-const LocationCard = ({ name, address, zip, onClick }) => (
+const LocationCard = ({ name, address, onClick }) => (
   <motion.div
     whileHover={{ y: -10, scale: 1.02 }}
     whileTap={{ scale: 0.98 }}
@@ -96,8 +96,8 @@ const LocationCard = ({ name, address, zip, onClick }) => (
       <MapPin size={18} color={BOTNA_YELLOW} />
     </div>
     <div className="location-body">
-      <p>{address}</p>
-      <p>{zip} {name.toUpperCase()}</p>
+      <p style={{ opacity: 0.9, marginBottom: '8px' }}>{address}</p>
+      <p style={{ fontWeight: 800, color: BOTNA_YELLOW, letterSpacing: '0.1em' }}>{name.toUpperCase()}</p>
     </div>
   </motion.div>
 );
@@ -331,17 +331,17 @@ const History = () => (
     <div className="section-watermark">BOTNA</div>
     <div className="container">
       <div className="history-grid">
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, x: -30 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
           className="history-visual"
         >
           <div className="decorative-circle">
-             <ElephantLogo size={250} />
+            <ElephantLogo size={250} />
           </div>
         </motion.div>
-        
+
         <motion.div
           initial={{ opacity: 0, x: 30 }}
           whileInView={{ opacity: 1, x: 0 }}
@@ -380,7 +380,7 @@ const Gallery = () => {
       <div className="container">
         <div className="section-header">
           <span className="section-label">UNE EXPLOSION DE SAVEUR</span>
-          <h2>VOIR NOS PHOTOS</h2>
+          <h2>Découvrez nos Photos</h2>
         </div>
         <div className="gallery-grid">
           {images.map((img, index) => (
@@ -430,7 +430,7 @@ const Reviews = () => (
     <div className="container">
       <div className="reviews-layout">
         <div className="reviews-summary">
-          <h2>EXCELLENT</h2>
+          <h2>Ce que disent nos Clients</h2>
           <div className="stars-large">
             {[...Array(5)].map((_, i) => (
               <Star key={i} size={30} fill={BOTNA_YELLOW} color={BOTNA_YELLOW} />
@@ -483,7 +483,7 @@ const MapItem = ({ address }) => {
 const Maps = () => (
   <section id="adresses" className="maps-section">
     <div className="container">
-      <h2 className="section-title">Nos adresses</h2>
+      <h2 className="section-title">Nos Adresses</h2>
       <div className="maps-grid">
         <MapItem address="42 Bd Victor Hugo, 31770 Colomiers" />
         <MapItem address="18 Bd de l'Europe, 31700 Beauzelle" />
@@ -537,6 +537,9 @@ const Footer = ({ onCitySelect, onHomeClick, onLegalClick }) => (
       </div>
       <div className="footer-bottom">
         <p>&copy; {new Date().getFullYear()} BOTNA Thai & Sushis. Tous droits réservés.</p>
+        <p style={{ marginTop: '10px', fontSize: '0.8rem', opacity: 0.7 }}>
+          Réalisé par <a href="https://microdidact.com/" target="_blank" rel="noreferrer" style={{ textDecoration: 'underline', color: 'var(--primary)' }}>Microdidact</a>
+        </p>
       </div>
     </div>
   </footer>

@@ -200,30 +200,78 @@
   text-align: left;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 15px;
+  min-height: 220px;
+  justify-content: center;
+  position: relative;
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  padding: 35px !important;
+  border: 1.5px solid rgba(236, 189, 14, 0.4) !important;
+  background: rgba(1, 30, 49, 0.6) !important;
+  backdrop-filter: blur(15px) !important;
+}
+
+/* Organic, Wavy Shapes (Liquid Blobs) */
+.location-card:nth-child(1) {
+  border-radius: 30% 70% 70% 30% / 67% 62% 38% 33% !important;
+}
+
+.location-card:nth-child(2) {
+  border-radius: 60% 40% 30% 70% / 60% 30% 70% 40% !important;
+}
+
+.location-card:nth-child(3) {
+  border-radius: 40% 60% 70% 30% / 40% 40% 60% 60% !important;
+}
+
+.location-card:nth-child(4) {
+  border-radius: 70% 30% 50% 50% / 30% 30% 70% 70% !important;
+}
+
+.location-card:hover {
+  border-color: var(--primary) !important;
+  box-shadow: 0 0 40px rgba(236, 189, 14, 0.15);
+  transform: translateY(-10px) scale(1.02);
+  /* Mutate the shape slightly on hover for "liquid" feel */
+}
+
+.location-card:nth-child(1):hover {
+  border-radius: 40% 60% 60% 40% / 60% 55% 45% 40% !important;
+}
+
+.location-card:nth-child(2):hover {
+  border-radius: 70% 30% 40% 60% / 70% 40% 60% 30% !important;
+}
+
+.location-card:nth-child(3):hover {
+  border-radius: 50% 50% 60% 40% / 50% 50% 50% 50% !important;
+}
+
+.location-card:nth-child(4):hover {
+  border-radius: 60% 40% 60% 40% / 40% 40% 60% 60% !important;
 }
 
 .location-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 8px;
 }
 
 .location-name {
-  font-weight: 800;
+  font-weight: 900;
   text-transform: uppercase;
-  letter-spacing: 0.1em;
-  background-color: var(--primary);
-  color: var(--navy-dark);
-  padding: 4px 12px;
-  border-radius: 20px;
-  font-size: 0.8rem;
+  letter-spacing: 0.15em;
+  color: var(--primary);
+  font-size: 1.2rem;
+  font-family: 'Outfit', sans-serif;
 }
 
 .location-body p {
-  font-size: 0.9rem;
-  opacity: 0.8;
-  line-height: 1.4;
+  font-size: 0.95rem;
+  opacity: 0.85;
+  line-height: 1.5;
+  font-family: 'Inter', sans-serif;
 }
 
 /* History - Innovative Editorial Layout */
@@ -323,7 +371,7 @@
     gap: 50px;
     text-align: center;
   }
-  
+
   .history-content {
     text-align: center;
     display: flex;
@@ -335,7 +383,7 @@
     width: 280px;
     height: 280px;
   }
-  
+
   .section-watermark {
     font-size: 40vw;
   }
@@ -357,10 +405,11 @@
 }
 
 .section-header h2 {
-  font-size: 3rem;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  margin-top: 10px;
+  font-family: 'Itim', cursive;
+  font-size: 3.5rem;
+  color: var(--primary);
+  margin-top: 15px;
+  line-height: 1.2;
 }
 
 .gallery-grid {
@@ -372,30 +421,70 @@
 .gallery-item {
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 20px;
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .gallery-img-wrapper {
   overflow: hidden;
-  border-radius: 4px;
-  /* Slight rounding like in the image */
-  height: 280px;
+  height: 420px;
+  position: relative;
+  border: 1.5px solid rgba(236, 189, 14, 0.2);
+  transition: all 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+}
+
+/* Unique Organic Blobs for each image */
+.gallery-item:nth-child(1) .gallery-img-wrapper { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
+.gallery-item:nth-child(2) .gallery-img-wrapper { border-radius: 40% 60% 70% 30% / 40% 40% 60% 60%; }
+.gallery-item:nth-child(3) .gallery-img-wrapper { border-radius: 70% 30% 50% 50% / 30% 30% 70% 70%; }
+.gallery-item:nth-child(4) .gallery-img-wrapper { border-radius: 30% 70% 70% 30% / 67% 62% 38% 33%; }
+.gallery-item:nth-child(5) .gallery-img-wrapper { border-radius: 100% 40% 90% 30% / 40% 100% 30% 90%; }
+.gallery-item:nth-child(6) .gallery-img-wrapper { border-radius: 30% 90% 100% 40% / 100% 30% 90% 40%; }
+
+.gallery-item:hover .gallery-img-wrapper {
+  transform: scale(1.05) rotate(1deg);
+  border-color: var(--primary);
+  box-shadow: 0 25px 50px rgba(236, 189, 14, 0.15);
+  border-radius: 30px !important;
+}
+
+.gallery-img-wrapper::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(180deg, transparent 60%, rgba(1, 30, 49, 0.8) 100%);
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.gallery-item:hover .gallery-img-wrapper::after {
+  opacity: 1;
 }
 
 .gallery-img-wrapper img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.5s ease;
+  transition: transform 1.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .gallery-item:hover img {
-  transform: scale(1.05);
+  transform: scale(1.15);
 }
 
 .gallery-item h3 {
   font-size: 1.2rem;
-  font-weight: 600;
+  font-weight: 800;
+  text-align: center;
+  color: var(--primary);
+  font-family: 'Outfit', sans-serif;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  margin-top: 10px;
 }
 
 /* Reviews */
@@ -498,7 +587,9 @@
 
 .section-title {
   text-align: center;
-  font-size: 3rem;
+  font-size: 3.5rem;
+  font-family: 'Itim', cursive;
+  color: var(--primary);
   margin-bottom: 60px;
 }
 
@@ -727,10 +818,21 @@
 @media (max-width: 480px) {
   .hero-locations-grid {
     grid-template-columns: 1fr;
+    max-width: 280px;
+    margin: 20px auto;
+    gap: 20px;
   }
 
-  .hero-title {
-    font-size: 3rem;
+  .location-card {
+    min-height: 160px;
+    text-align: center;
+    align-items: center;
+    padding: 25px !important;
+  }
+
+  .location-header {
+    justify-content: center;
+    gap: 10px;
   }
 }
 
@@ -1237,12 +1339,12 @@
   }
 
   .hero-content {
-    padding: 80px 20px 20px 20px;
-    /* Space for Navbar here instead */
+    padding: 80px 20px 20px;
     height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
+    align-items: center !important; /* Force centering of all items */
     gap: 30px;
   }
 
@@ -1258,40 +1360,47 @@
   }
 
   .hero-locations-grid {
+    display: grid;
     grid-template-columns: repeat(2, 1fr);
-    /* Back to 2 columns but smaller */
     gap: 10px;
-    margin-top: 10px;
-    padding: 0 5%;
+    margin: 15px auto 0;
+    padding: 0 !important;
     width: 100%;
-    margin-bottom: 0;
+    max-width: 360px; /* Perfectly fit 2 cards on mobile */
+    justify-content: center;
+    box-sizing: border-box;
   }
 
   .location-card {
-    padding: 12px 8px;
+    padding: 10px 5px !important;
     text-align: center;
-    min-height: auto;
+    min-height: 120px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
   }
 
   .location-header {
     justify-content: center;
-    gap: 6px;
+    gap: 4px;
     margin-bottom: 4px;
-    flex-direction: row-reverse;
+    width: 100%;
   }
 
   .location-name {
-    font-size: 0.65rem;
-    padding: 2px 8px;
+    font-size: 0.65rem !important;
+    padding: 2px 6px;
+    letter-spacing: 0.05em;
   }
 
   .location-body p {
-    font-size: 0.7rem;
+    font-size: 0.65rem !important;
     line-height: 1.2;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
+    max-width: 90%;
+    margin: 0 auto;
   }
 
   .city-hero-main .brand-logo {
@@ -1313,21 +1422,52 @@
     margin-bottom: 1rem;
   }
 
-  /* Footer stacking */
+  /* Improved Mobile Footer */
+  .footer {
+    padding: 60px 20px 30px;
+  }
+
   .footer-grid {
     grid-template-columns: 1fr;
+    gap: 50px;
     text-align: center;
-    gap: 40px;
+  }
+
+  .footer-brand-col {
+    align-items: center;
+  }
+
+  .footer-col h3 {
+    margin-bottom: 20px;
+    font-size: 1.1rem;
   }
 
   .footer-col ul {
-    align-items: center;
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Two columns for links on mobile for efficiency */
+    gap: 12px;
+    text-align: left;
+    max-width: 320px;
+    margin: 0 auto;
   }
 
-  .contact-info {
+  .footer-col ul li {
+    text-align: center;
+  }
+
+  .footer-socials {
     justify-content: center;
+    gap: 20px;
+  }
+
+  .footer-bottom {
+    margin-top: 40px;
+    padding-top: 30px;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+  }
+
+  .footer-bottom p {
+    font-size: 0.75rem;
   }
 }
 
