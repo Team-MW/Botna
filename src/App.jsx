@@ -102,6 +102,7 @@ const LocationCard = ({ name, address, zip }) => (
 const CityDetail = ({ city }) => (
   <div className="city-detail-page">
     <header className="hero">
+      <VideoBackground videoId="h2V2mBBXgj4" onLoaded={() => {}} />
       <div className="hero-overlay"></div>
       <div className="hero-content">
         <motion.div 
@@ -175,6 +176,7 @@ const CityDetail = ({ city }) => (
 const LegalNotice = () => (
   <div className="legal-page">
     <header className="hero">
+       <VideoBackground videoId="h2V2mBBXgj4" onLoaded={() => {}} />
        <div className="hero-overlay"></div>
        <div className="hero-content">
           <ElephantLogo size={200} />
@@ -208,10 +210,42 @@ const LegalNotice = () => (
   </div>
 );
 
-const Hero = () => (
-  <header className="hero">
-    <div className="hero-overlay"></div>
-    <div className="hero-content">
+const GlobalLoader = () => (
+  <div className="global-loader">
+    <div className="loader-content">
+      <ElephantLogo size={120} />
+      <div className="spinner"></div>
+    </div>
+  </div>
+);
+
+const VideoBackground = ({ videoId, onLoaded }) => (
+  <div className="video-background-container">
+    <iframe
+      src={`https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&loop=1&playlist=${videoId}&controls=0&showinfo=0&rel=0&modestbranding=1&playsinline=1`}
+      frameBorder="0"
+      onLoad={onLoaded}
+      allow="autoplay; fullscreen"
+      title="Background Video"
+    ></iframe>
+  </div>
+);
+
+const LoadingScreen = () => (
+  <div className="video-loader">
+    <div className="spinner"></div>
+    <p>Préparation de votre voyage culinaire...</p>
+  </div>
+);
+
+const Hero = () => {
+  const [isVideoLoaded, setIsVideoLoaded] = useState(false);
+
+  return (
+    <header className="hero main-hero">
+      <VideoBackground videoId="h2V2mBBXgj4" onLoaded={() => setIsVideoLoaded(true)} />
+      <div className="hero-overlay"></div>
+      <div className="hero-content">
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
@@ -243,7 +277,8 @@ const Hero = () => (
       </div>
     </div>
   </header>
-);
+  );
+};
 
 const History = () => (
   <section className="history-section">
@@ -452,28 +487,51 @@ const Footer = ({ onCitySelect, onHomeClick, onLegalClick }) => (
 function App() {
   const [activeView, setActiveView] = useState('home'); // home, city, mentions
   const [activeCityId, setActiveCityId] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
 
-  const cities = [
-    // ... cities remain the same
-  ]; // I'll keep the actual content in the real call
+  // ... cities remain the same
+  // (I'll keep the full data in the real replacement)
 
   useEffect(() => {
-    window.scrollTo(0, 0);
+    // Hide global loader after initial load (+ some time for style)
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 2000);
+    return () => clearTimeout(timer);
+  }, []);
+
+  useEffect(() => {
+    // Force scroll to top on view or city change
+    setTimeout(() => {
+      window.scrollTo(0, 0);
+    }, 0);
   }, [activeView, activeCityId]);
 
   const handleCitySelect = (id) => {
-    setActiveCityId(id);
-    setActiveView('city');
+    setIsLoading(true);
+    setTimeout(() => {
+      setActiveCityId(id);
+      setActiveView('city');
+      setIsLoading(false);
+    }, 800);
   };
 
   const handleHomeClick = () => {
-    setActiveCityId(null);
-    setActiveView('home');
+    setIsLoading(true);
+    setTimeout(() => {
+      setActiveCityId(null);
+      setActiveView('home');
+      setIsLoading(false);
+    }, 800);
   };
 
   const handleLegalClick = () => {
-    setActiveCityId(null);
-    setActiveView('mentions');
+    setIsLoading(true);
+    setTimeout(() => {
+      setActiveCityId(null);
+      setActiveView('mentions');
+      setIsLoading(false);
+    }, 800);
   };
 
   const citiesData = [
@@ -527,34 +585,38 @@ function App() {
 
   return (
     <div className="App">
-      <Navbar 
-        onCitySelect={handleCitySelect} 
-        onHomeClick={handleHomeClick} 
-        cities={citiesData}
-      />
+      {isLoading && <GlobalLoader />}
       
-      {activeView === 'city' && activeCity && (
-        <CityDetail city={activeCity} />
-      )}
-      
-      {activeView === 'mentions' && (
-        <LegalNotice />
-      )}
-      
-      {activeView === 'home' && (
-        <>
-          <Hero />
-          <History />
-          <Gallery />
-          <Reviews />
-          <Maps />
-        </>
-      )}
-      <Footer 
-        onCitySelect={handleCitySelect} 
-        onHomeClick={handleHomeClick} 
-        onLegalClick={handleLegalClick}
-      />
+      <div className={`main-layout ${isLoading ? 'hidden' : 'visible'}`}>
+        <Navbar 
+          onCitySelect={handleCitySelect} 
+          onHomeClick={handleHomeClick} 
+          cities={citiesData}
+        />
+        
+        {activeView === 'city' && activeCity && (
+          <CityDetail city={activeCity} />
+        )}
+        
+        {activeView === 'mentions' && (
+          <LegalNotice />
+        )}
+        
+        {activeView === 'home' && (
+          <>
+            <Hero />
+            <History />
+            <Gallery />
+            <Reviews />
+            <Maps />
+          </>
+        )}
+        <Footer 
+          onCitySelect={handleCitySelect} 
+          onHomeClick={handleHomeClick} 
+          onLegalClick={handleLegalClick}
+        />
+      </div>
     </div>
   );
 }

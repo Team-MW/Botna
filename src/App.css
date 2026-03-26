@@ -76,10 +76,14 @@
   position: relative;
   height: 100vh;
   width: 100%;
-  background: url('/hero.png') no-repeat center center/cover;
+  background: var(--navy-dark);
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.hero:not(.main-hero) {
+  background: url('/hero.png') no-repeat center center/cover;
 }
 
 .hero-overlay {
@@ -842,4 +846,101 @@
   .menu-viewer {
     height: 500px;
   }
+}
+/* Video Background */
+.video-background-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.video-background-container iframe {
+  width: 100vw;
+  height: 56.25vw; /* 16:9 aspect ratio */
+  min-height: 100vh;
+  min-width: 177.77vh; /* 16:9 aspect ratio */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  filter: brightness(0.6) saturate(1.2);
+}
+
+.hero-content, .hero-overlay {
+  z-index: 10;
+}
+/* Video Loader Styles */
+.video-loader {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--navy-dark);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 50;
+  transition: opacity 0.5s ease;
+}
+
+.spinner {
+  width: 50px;
+  height: 50px;
+  border: 4px solid rgba(255, 255, 255, 0.1);
+  border-left: 4px solid var(--primary);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 20px;
+}
+
+.video-loader p {
+  color: var(--white);
+  font-size: 0.9rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  opacity: 0.7;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+/* Global Loader */
+.global-loader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--navy-dark);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.loader-content {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+}
+
+.main-layout.hidden {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.main-layout.visible {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.8s ease-in-out;
 }
