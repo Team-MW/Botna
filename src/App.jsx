@@ -134,16 +134,21 @@ const CityDetail = ({ city }) => (
         </div>
         
         <div className="carte-display">
-          <div className="carte-embed glass-card">
-            <iframe 
-              src={`/dépliant-prépa-${city.pdf}.pdf#view=FitH&pagemode=none&toolbar=0&navpanes=0&scrollbar=0`} 
-              className="menu-viewer" 
-              title={`Menu Botna ${city.name}`}
-            ></iframe>
-            <div className="carte-info" style={{ marginTop: '20px' }}>
-              <p>Si la carte ne s'affiche pas, vous pouvez la consulter directement ci-dessous.</p>
+          <div className="carte-embed">
+            <div className="menu-page-container glass-card">
+              <span className="page-label">RECTO / THAÏ</span>
+              <PDFPage url={`/dépliant-prépa-${city.pdf}.pdf`} pageNum={1} />
+            </div>
+            
+            <div className="menu-page-container glass-card" style={{ marginTop: '40px' }}>
+              <span className="page-label">VERSO / SUSHIS</span>
+              <PDFPage url={`/dépliant-prépa-${city.pdf}.pdf`} pageNum={2} />
+            </div>
+
+            <div className="carte-info" style={{ marginTop: '40px' }}>
+              <p>Besoin de la version haute définition ?</p>
               <a href={`/dépliant-prépa-${city.pdf}.pdf`} className="primary-btn" target="_blank" rel="noreferrer">
-                VOIR LA CARTE SUR TOUT L'ÉCRAN
+                TÉLÉCHARGER LE PDF COMPLET
               </a>
             </div>
           </div>
@@ -218,6 +223,40 @@ const GlobalLoader = () => (
     </div>
   </div>
 );
+
+const PDFPage = ({ url, pageNum }) => {
+  const canvasRef = React.useRef(null);
+  const [isLoading, setIsLoading] = React.useState(true);
+
+  useEffect(() => {
+    const renderPage = async () => {
+      try {
+        if (!window.pdfjsLib) return;
+        window.pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+        const pdf = await window.pdfjsLib.getDocument(url).promise;
+        const page = await pdf.getPage(pageNum);
+        const viewport = page.getViewport({ scale: 2.0 });
+        const canvas = canvasRef.current;
+        if (!canvas) return;
+        const context = canvas.getContext('2d');
+        canvas.height = viewport.height;
+        canvas.width = viewport.width;
+        await page.render({ canvasContext: context, viewport }).promise;
+        setIsLoading(false);
+      } catch (err) {
+        console.error('PDF error:', err);
+      }
+    };
+    renderPage();
+  }, [url, pageNum]);
+
+  return (
+    <div className="pdf-page-container">
+      {isLoading && <div className="mini-spinner"></div>}
+      <canvas ref={canvasRef} style={{ width: '100%', height: 'auto', display: isLoading ? 'none' : 'block' }} />
+    </div>
+  );
+};
 
 const VideoBackground = ({ videoId, onLoaded }) => (
   <div className="video-background-container">

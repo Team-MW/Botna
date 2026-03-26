@@ -944,3 +944,59 @@
   visibility: visible;
   transition: opacity 0.8s ease-in-out;
 }
+/* Menu Page Split View */
+.menu-page-container {
+  padding: 30px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.page-label {
+  align-self: flex-start;
+  font-size: 0.8rem;
+  letter-spacing: 2px;
+  color: var(--primary);
+  opacity: 0.8;
+  font-weight: 700;
+}
+
+.carte-embed {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+@media (max-width: 768px) {
+  .menu-page-container {
+    padding: 15px;
+  }
+}
+/* Menu Image Display */
+.menu-card-img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  display: block;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+/* PDF Page Rendering */
+.pdf-page-container {
+  min-height: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255,255,255,0.05);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.mini-spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid rgba(255, 255, 255, 0.1);
+  border-left: 4px solid var(--primary);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
