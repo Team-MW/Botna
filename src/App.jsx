@@ -261,17 +261,82 @@ const PDFPage = ({ url, pageNum }) => {
   );
 };
 
-const VideoBackground = ({ videoId, onLoaded }) => (
-  <div className="video-background-container">
-    <iframe
-      src={`https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&loop=1&playlist=${videoId}&controls=0&showinfo=0&rel=0&modestbranding=1&playsinline=1&enablejsapi=1`}
-      frameBorder="0"
-      onLoad={onLoaded}
-      allow="autoplay; encrypted-media; fullscreen; picture-in-picture"
-      title="Background Video"
-    ></iframe>
-  </div>
-);
+const VideoBackground = ({ videoId, onLoaded }) => {
+  const playerRef = React.useRef(null);
+  const containerId = React.useMemo(() => `yt-player-${Math.random().toString(36).substr(2, 9)}`, []);
+
+  useEffect(() => {
+    const loadVideo = () => {
+      if (!window.YT || !window.YT.Player) {
+        // Load the SDK if not already there
+        if (!document.getElementById('youtube-sdk')) {
+          const tag = document.createElement('script');
+          tag.id = 'youtube-sdk';
+          tag.src = "https://www.youtube.com/iframe_api";
+          const firstScriptTag = document.getElementsByTagName('script')[0];
+          firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+        }
+
+        // Wait for it
+        const checkInterval = setInterval(() => {
+          if (window.YT && window.YT.Player) {
+            clearInterval(checkInterval);
+            createPlayer();
+          }
+        }, 100);
+      } else {
+        createPlayer();
+      }
+    };
+
+    const createPlayer = () => {
+      if (playerRef.current) return;
+      
+      playerRef.current = new window.YT.Player(containerId, {
+        videoId: videoId,
+        playerVars: {
+          autoplay: 1,
+          mute: 1,
+          controls: 0,
+          showinfo: 0,
+          rel: 0,
+          modestbranding: 1,
+          playsinline: 1,
+          iv_load_policy: 3,
+          autohide: 1,
+        },
+        events: {
+          onReady: (event) => {
+            event.target.playVideo();
+            if (onLoaded) onLoaded();
+          },
+          onStateChange: (event) => {
+            // LOOP LOGIC: Replay immediately when video ends or buffers weirdly
+            if (event.data === window.YT.PlayerState.ENDED) {
+              event.target.seekTo(0);
+              event.target.playVideo();
+            }
+          }
+        }
+      });
+    };
+
+    loadVideo();
+
+    return () => {
+      if (playerRef.current) {
+        playerRef.current.destroy();
+        playerRef.current = null;
+      }
+    };
+  }, [videoId, onLoaded, containerId]);
+
+  return (
+    <div className="video-background-container">
+      <div id={containerId} style={{ width: '100%', height: '100%' }}></div>
+    </div>
+  );
+};
 
 const LoadingScreen = () => (
   <div className="video-loader">
