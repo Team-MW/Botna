@@ -304,10 +304,23 @@ const VideoBackground = ({ videoId, onLoaded }) => {
           playsinline: 1,
           iv_load_policy: 3,
           autohide: 1,
+          enablejsapi: 1,
+          origin: window.location.origin,
+          widget_referrer: window.location.href,
         },
         events: {
           onReady: (event) => {
-            event.target.playVideo();
+            event.target.mute();
+            // Small delay for mobile browsers to ensure autoplay is allowed after load
+            setTimeout(() => {
+              const playPromise = event.target.playVideo();
+              // Handling promise-based playback if supported by recent YT player updates
+              if (playPromise && typeof playPromise.then === 'function') {
+                playPromise.catch(() => {
+                  console.log("Autoplay blocked, waiting for interaction");
+                });
+              }
+            }, 500);
             if (onLoaded) onLoaded();
           },
           onStateChange: (event) => {
