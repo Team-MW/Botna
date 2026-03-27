@@ -2,38 +2,38 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://botna.fr/</loc>
-    <lastmod>2025-03-26</lastmod>
+    <lastmod>2026-03-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://botna.fr/#colomiers</loc>
-    <lastmod>2025-03-26</lastmod>
+    <loc>https://botna.fr/colomiers</loc>
+    <lastmod>2026-03-27</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://botna.fr/#beauzelle</loc>
-    <lastmod>2025-03-26</lastmod>
+    <loc>https://botna.fr/beauzelle</loc>
+    <lastmod>2026-03-27</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://botna.fr/#grenade</loc>
-    <lastmod>2025-03-26</lastmod>
+    <loc>https://botna.fr/grenade</loc>
+    <lastmod>2026-03-27</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://botna.fr/#roquettes</loc>
-    <lastmod>2025-03-26</lastmod>
+    <loc>https://botna.fr/roquettes</loc>
+    <lastmod>2026-03-27</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://botna.fr/#mentions</loc>
-    <lastmod>2025-03-26</lastmod>
+    <loc>https://botna.fr/mentions-legales</loc>
+    <lastmod>2026-03-27</lastmod>
     <changefreq>yearly</changefreq>
-    <priority>0.3</priority>
+    <priority>0.4</priority>
   </url>
 </urlset>
