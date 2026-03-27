@@ -434,10 +434,42 @@ const Maps = () => (
     <div className="container">
       <h2 className="section-title">Nos Adresses</h2>
       <div className="maps-grid">
-        <div className="map-item"><iframe title="Colomiers" width="100%" height="100%" frameBorder="0" style={{ border: 0 }} src="https://www.google.com/maps?q=42+Bd+Victor+Hugo,+31770+Colomiers&output=embed" allowFullScreen></iframe></div>
-        <div className="map-item"><iframe title="Beauzelle" width="100%" height="100%" frameBorder="0" style={{ border: 0 }} src="https://www.google.com/maps?q=18+Bd+de+l'Europe,+31700+Beauzelle&output=embed" allowFullScreen></iframe></div>
-        <div className="map-item"><iframe title="Grenade" width="100%" height="100%" frameBorder="0" style={{ border: 0 }} src="https://www.google.com/maps?q=6+Av.+du+Président+Kennedy,+31330+Grenade&output=embed" allowFullScreen></iframe></div>
-        <div className="map-item"><iframe title="Roquettes" width="100%" height="100%" frameBorder="0" style={{ border: 0 }} src="https://www.google.com/maps?q=1+Rue+Colette+Besson,+31120+Roquettes&output=embed" allowFullScreen></iframe></div>
+        {[
+          { name: "Colomiers", q: "42+Bd+Victor+Hugo,+31770+Colomiers" },
+          { name: "Beauzelle", q: "18+Bd+de+l'Europe,+31700+Beauzelle" },
+          { name: "Grenade", q: "6+Av.+du+Président+Kennedy,+31330+Grenade" },
+          { name: "Roquettes", q: "1+Rue+Colette+Besson,+31120+Roquettes" }
+        ].map((loc) => (
+          <div className="map-item" key={loc.name} style={{ position: 'relative' }}>
+            <div style={{
+              position: 'absolute',
+              top: '20px',
+              left: '20px',
+              zIndex: 10,
+              backgroundColor: BOTNA_YELLOW,
+              color: '#011e31',
+              padding: '10px 25px',
+              fontWeight: 900,
+              fontSize: '1.1rem',
+              letterSpacing: '0.1em',
+              textTransform: 'uppercase',
+              borderRadius: '60% 40% 30% 70% / 60% 30% 70% 40%',
+              boxShadow: '0 10px 20px rgba(0,0,0,0.3)',
+              border: '2px solid rgba(255,255,255,0.2)'
+            }}>
+              {loc.name}
+            </div>
+            <iframe
+              title={loc.name}
+              width="100%"
+              height="100%"
+              frameBorder="0"
+              style={{ border: 0 }}
+              src={`https://www.google.com/maps?q=${loc.q}&output=embed`}
+              allowFullScreen
+            ></iframe>
+          </div>
+        ))}
       </div>
     </div>
   </section>
