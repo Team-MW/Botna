@@ -177,6 +177,29 @@ const VideoBackground = ({ videoId, onLoaded }) => {
   );
 };
 
+const ImageModal = ({ src, onClose }) => (
+  <motion.div
+    initial={{ opacity: 0 }}
+    animate={{ opacity: 1 }}
+    exit={{ opacity: 0 }}
+    className="image-modal-overlay"
+    onClick={onClose}
+  >
+    <motion.div
+      initial={{ scale: 0.8, y: 20 }}
+      animate={{ scale: 1, y: 0 }}
+      exit={{ scale: 0.8, y: 20 }}
+      className="image-modal-content"
+      onClick={(e) => e.stopPropagation()}
+    >
+      <button className="modal-close" onClick={onClose}>
+        <X size={32} />
+      </button>
+      <img src={src} alt="Menu Zoom" />
+    </motion.div>
+  </motion.div>
+);
+
 const FullScreenLoader = ({ isVisible }) => (
   <AnimatePresence mode="wait">
     {isVisible && (
@@ -288,11 +311,15 @@ const HomePage = ({ cities, onVideoLoaded }) => {
 const CityPage = ({ cities, onVideoLoaded }) => {
   const { cityId } = useParams();
   const city = cities.find(c => c.id === cityId);
+  const [selectedImage, setSelectedImage] = useState(null);
 
   if (!city) return <div className="container" style={{padding:'200px 0', textAlign:'center'}}><h1>Page non trouvée</h1><Link to="/">Retour à l'accueil</Link></div>;
 
   return (
     <motion.div animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="city-detail-page">
+      <AnimatePresence>
+        {selectedImage && <ImageModal src={selectedImage} onClose={() => setSelectedImage(null)} />}
+      </AnimatePresence>
       <header className="hero">
         <VideoBackground videoId="h2V2mBBXgj4" onLoaded={onVideoLoaded} />
         <div className="hero-overlay"></div>
@@ -325,15 +352,23 @@ const CityPage = ({ cities, onVideoLoaded }) => {
 
           <div className="carte-display">
             <div className="carte-embed">
-              <div className="menu-page-container glass-card">
+              <div 
+                className="menu-page-container glass-card" 
+                onClick={() => setSelectedImage(`/assets/menus/${city.pdf}-1.png`)}
+                style={{ cursor: 'zoom-in' }}
+              >
                 <img src={`/assets/menus/${city.pdf}-1.png`} alt="Menu Recto" style={{width:'100%', height:'auto', borderRadius:'15px'}} onError={(e)=>e.target.src='/thai.png'}/>
+                <div className="zoom-hint"><ExternalLink size={16} /> Cliquer pour agrandir</div>
               </div>
 
-              <div className="menu-page-container glass-card" style={{ marginTop: '40px' }}>
+              <div 
+                className="menu-page-container glass-card" 
+                onClick={() => setSelectedImage(`/assets/menus/${city.pdf}-2.png`)}
+                style={{ marginTop: '40px', cursor: 'zoom-in' }}
+              >
                 <img src={`/assets/menus/${city.pdf}-2.png`} alt="Menu Verso" style={{width:'100%', height:'auto', borderRadius:'15px'}} onError={(e)=>e.target.src='/sushi.png'}/>
+                <div className="zoom-hint"><ExternalLink size={16} /> Cliquer pour agrandir</div>
               </div>
-
-
             </div>
           </div>
 
