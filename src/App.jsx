@@ -449,7 +449,7 @@ const History = () => (
             En 2024, à Colomiers, <strong>BOTNA</strong> est né d'une passion : fusionner l'énergie de la Thaïlande et la finesse du Japon.
           </p>
           <p>
-            Chaque restaurant, de <strong>Beauzelle</strong> à <strong>Grenade</strong>, est une invitation au voyage, où tradition et créativité s'unissent pour une expérience gustative inoubliable.
+            Chaque restaurant, de <strong>Colomiers</strong> à <strong>Léguevin</strong>, en passant par <strong>Beauzelle</strong> et <strong>Grenade</strong>, est une invitation au voyage, où tradition et créativité s'unissent pour une expérience gustative inoubliable.
           </p>
           <div className="history-signature">BOTNA Thai & Sushi</div>
         </motion.div>
@@ -606,6 +606,7 @@ const Maps = () => (
           { name: "Colomiers", q: "42+Bd+Victor+Hugo,+31770+Colomiers" },
           { name: "Beauzelle", q: "18+Bd+de+l'Europe,+31700+Beauzelle" },
           { name: "Grenade", q: "6+Av.+du+Président+Kennedy,+31330+Grenade" },
+          { name: "Léguevin", q: "18+Allées+des+Cordeliers,+31490+Léguevin" },
           { name: "Roquettes", q: "1+Rue+Colette+Besson,+31120+Roquettes" }
         ].map((loc) => (
           <div className="map-item" key={loc.name} style={{ position: 'relative' }}>
@@ -754,6 +755,24 @@ function App() {
         { day: 'jeudi', time: '12:00–14:30, 18:30–22:00' },
         { day: 'vendredi', time: '12:00–14:30, 18:30–22:30' },
         { day: 'samedi', time: '12:00–14:30, 18:30–22:30' },
+        { day: 'dimanche', time: '12:00–14:30, 19:00–22:00' }
+      ]
+    },
+    {
+      id: 'leguevin', name: 'Léguevin', address: '18 Allées des Cordeliers, 31490 Léguevin', phone: '06 07 96 63 38', pdf: 'Lèguevin',
+      faq: [
+        { question: "Où manger les meilleurs sushis à Léguevin ?", answer: "Chez BOTNA, nous vous proposons une sélection rigoureuse de sushis frais préparés sur place chaque jour à Léguevin." },
+        { question: "Existe-t-il un bon restaurant Thaï à Léguevin ?", answer: "BOTNA Léguevin mélange l'art délicat des sushis japonais avec les saveurs envoûtantes de la cuisine Thaïlandaise traditionnelle." },
+        { question: "Proposez-vous la vente à emporter à Léguevin ?", answer: "Oui, tous nos plats sont disponibles en Click & Collect pour un voyage culinaire chez vous." },
+        { question: "Comment réserver à Léguevin ?", answer: "Vous pouvez nous appeler directement au 06 07 96 63 38 pour vos réservations ou commandes." }
+      ],
+      hours: [
+        { day: 'lundi', time: 'Fermé' },
+        { day: 'mardi', time: '12:00–14:30, 19:00–22:00' },
+        { day: 'mercredi', time: '12:00–14:30, 19:00–22:00' },
+        { day: 'jeudi', time: '12:00–14:30, 19:00–22:00' },
+        { day: 'vendredi', time: '12:00–14:30, 19:00–22:00' },
+        { day: 'samedi', time: '12:00–14:30, 19:00–22:00' },
         { day: 'dimanche', time: '12:00–14:30, 19:00–22:00' }
       ]
     },
