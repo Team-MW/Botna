@@ -97,6 +97,13 @@ const Navbar = ({ cities }) => {
 const VideoBackground = ({ videoId, onLoaded }) => {
   const playerRef = React.useRef(null);
   const containerId = React.useMemo(() => `yt-player-${Math.random().toString(36).substr(2, 9)}`, []);
+  const [isVideoVisible, setIsVideoVisible] = useState(false);
+  
+  // Use a ref for the callback to avoid re-running the player setup if the function identity changes
+  const onLoadedRef = React.useRef(onLoaded);
+  useEffect(() => {
+    onLoadedRef.current = onLoaded;
+  }, [onLoaded]);
 
   useEffect(() => {
     const loadVideo = () => {
@@ -140,7 +147,13 @@ const VideoBackground = ({ videoId, onLoaded }) => {
           },
           onStateChange: (event) => {
             if (event.data === window.YT.PlayerState.PLAYING) {
-              if (onLoaded) onLoaded();
+              // The "DOUILLE": 
+              // 1. Let the video play for 2 seconds behind opacity 0
+              // 2. Then show it and tell the global loader to fade out
+              setTimeout(() => {
+                setIsVideoVisible(true);
+                if (onLoadedRef.current) onLoadedRef.current();
+              }, 2000); 
             }
             if (event.data === window.YT.PlayerState.ENDED) {
               event.target.seekTo(0);
@@ -157,52 +170,66 @@ const VideoBackground = ({ videoId, onLoaded }) => {
         playerRef.current = null;
       }
     };
-  }, [videoId, onLoaded, containerId]);
+  }, [videoId, containerId]);
 
   return (
-    <div className="video-background-container">
+    <div className="video-background-container" style={{ opacity: isVideoVisible ? 1 : 0, transition: 'opacity 1s ease' }}>
       <div id={containerId} style={{ width: '100%', height: '100%' }}></div>
     </div>
   );
 };
 
 const FullScreenLoader = ({ isVisible }) => (
-  <AnimatePresence>
+  <AnimatePresence mode="wait">
     {isVisible && (
       <motion.div
+        key="loader"
         initial={{ opacity: 1 }}
         exit={{ opacity: 0 }}
-        transition={{ duration: 0.8 }}
+        transition={{ duration: 1.2, ease: "easeInOut" }}
         style={{
           position: 'fixed',
           top: 0,
           left: 0,
           width: '100vw',
           height: '100vh',
-          backgroundColor: 'var(--navy-dark)',
           zIndex: 9999,
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
-          flexDirection: 'column'
+          overflow: 'hidden',
+          background: 'var(--navy-dark)'
         }}
       >
+        {/* The "Different" Image as background */}
         <motion.div
-          animate={{ scale: [1, 1.05, 1], opacity: [0.8, 1, 0.8] }}
-          transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
-          style={{ position: 'relative', display: 'flex', flexDirection: 'column', alignItems: 'center' }}
+          initial={{ scale: 1.1 }}
+          animate={{ scale: 1 }}
+          transition={{ duration: 5 }}
+          style={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            width: '100%',
+            height: '100%',
+            backgroundImage: 'url(/IMG_4175.png)',
+            backgroundPosition: 'center',
+            backgroundSize: 'cover',
+            opacity: 0.6,
+            filter: 'blur(5px)'
+          }}
+        />
+        
+        {/* Central Logo for branding */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.3 }}
+          style={{ position: 'relative', zIndex: 10, display: 'flex', flexDirection: 'column', alignItems: 'center' }}
         >
-          <ElephantLogo size={250} />
-          
-          <div style={{ marginTop: '40px', textAlign: 'center' }}>
-            <h2 style={{ color: 'var(--primary)', marginBottom: '15px', letterSpacing: '0.2em', fontSize: '1.2rem' }}>EXPÉRIENCE BOTNA...</h2>
-            <div style={{ width: '200px', height: '2px', backgroundColor: 'rgba(255,255,255,0.1)', position: 'relative', overflow: 'hidden', borderRadius: '10px' }}>
-              <motion.div 
-                animate={{ x: [-200, 200] }}
-                transition={{ repeat: Infinity, duration: 1.5, ease: "linear" }}
-                style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', background: 'linear-gradient(90deg, transparent, var(--primary), transparent)' }}
-              />
-            </div>
+          <ElephantLogo size={300} />
+          <div style={{ marginTop: '20px' }}>
+             <h2 style={{ color: BOTNA_YELLOW, letterSpacing: '0.4em', fontSize: '1.5rem', textTransform: 'uppercase' }}>Botna</h2>
           </div>
         </motion.div>
       </motion.div>
@@ -234,18 +261,11 @@ const LocationCard = ({ city }) => {
   );
 };
 
-const HomePage = ({ cities }) => {
-  const [videoLoaded, setVideoLoaded] = useState(false);
-  useEffect(() => {
-    const timer = setTimeout(() => setVideoLoaded(true), 6000); // Failsafe
-    return () => clearTimeout(timer);
-  }, []);
-
+const HomePage = ({ cities, onVideoLoaded }) => {
   return (
-  <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-    <FullScreenLoader isVisible={!videoLoaded} />
+  <motion.div animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
     <header className="hero main-hero">
-      <VideoBackground videoId="h2V2mBBXgj4" onLoaded={() => setVideoLoaded(true)} />
+      <VideoBackground videoId="h2V2mBBXgj4" onLoaded={onVideoLoaded} />
       <div className="hero-overlay"></div>
       <div className="hero-content">
         <motion.div
@@ -269,28 +289,22 @@ const HomePage = ({ cities }) => {
     <History />
     <Gallery />
     <Reviews />
+    <InstagramFeed />
     <Maps />
   </motion.div>
   );
 };
 
-const CityPage = ({ cities }) => {
+const CityPage = ({ cities, onVideoLoaded }) => {
   const { cityId } = useParams();
   const city = cities.find(c => c.id === cityId);
-  const [videoLoaded, setVideoLoaded] = useState(false);
-
-  useEffect(() => {
-    const timer = setTimeout(() => setVideoLoaded(true), 6000); // Failsafe
-    return () => clearTimeout(timer);
-  }, [cityId]);
 
   if (!city) return <div className="container" style={{padding:'200px 0', textAlign:'center'}}><h1>Page non trouvée</h1><Link to="/">Retour à l'accueil</Link></div>;
 
   return (
-    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="city-detail-page">
-      <FullScreenLoader isVisible={!videoLoaded} />
+    <motion.div animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="city-detail-page">
       <header className="hero">
-        <VideoBackground videoId="h2V2mBBXgj4" onLoaded={() => setVideoLoaded(true)} />
+        <VideoBackground videoId="h2V2mBBXgj4" onLoaded={onVideoLoaded} />
         <div className="hero-overlay"></div>
         <div className="hero-content">
           <motion.div
@@ -374,7 +388,7 @@ const CityPage = ({ cities }) => {
       </section>
       
       <Gallery />
-      
+      <InstagramFeed />
     </motion.div>
   );
 };
@@ -501,6 +515,49 @@ const Reviews = () => (
   </section>
 );
 
+const InstagramFeed = () => {
+  return (
+    <section className="instagram-section">
+      <div className="container">
+        <div className="section-header" style={{ marginBottom: '40px' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '10px' }}>
+            <div className="insta-icon-wrapper">
+              <Instagram size={40} color={BOTNA_YELLOW} />
+            </div>
+            <h2 style={{ margin: 0 }}>Suivez-nous sur Instagram</h2>
+            <a 
+              href="https://www.instagram.com/botna_thai_sushi/" 
+              target="_blank" 
+              rel="noreferrer" 
+              className="insta-handle-btn"
+            >
+              @botna_thai_sushi
+            </a>
+          </div>
+        </div>
+        
+        <div className="insta-hero-container">
+          <motion.a
+            whileHover={{ scale: 1.01 }}
+            href="https://www.instagram.com/botna_thai_sushi/"
+            target="_blank"
+            rel="noreferrer"
+            className="insta-hero-link"
+          >
+            <img src="/instagram.png" alt="Instagram Botna Feed" className="insta-full-img" />
+            <div className="insta-full-overlay">
+              <div className="insta-overlay-content">
+                <Instagram size={50} color="#fff" />
+                <span>VOIR SUR INSTAGRAM</span>
+              </div>
+            </div>
+          </motion.a>
+        </div>
+      </div>
+    </section>
+  );
+};
+
 const Maps = () => (
   <section id="adresses" className="maps-section">
     <div className="container">
@@ -606,13 +663,6 @@ const Footer = ({ cities }) => (
 // --- Main App ---
 
 function App() {
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    const timer = setTimeout(() => setIsLoading(false), 2000);
-    return () => clearTimeout(timer);
-  }, []);
-
   const citiesData = [
     {
       id: 'colomiers', name: 'Colomiers', address: '42 Bd Victor Hugo, 31770 Colomiers', phone: '06 52 27 70 92', pdf: 'Colomiers2',
@@ -681,19 +731,47 @@ function App() {
 
   return (
     <Router>
-      <ScrollToTop />
-      <div className="App">
-        <Navbar cities={citiesData} />
-        <AnimatePresence mode="wait">
-          <Routes>
-            <Route path="/" element={<HomePage cities={citiesData} />} />
-            <Route path="/:cityId" element={<CityPage cities={citiesData} />} />
-            <Route path="/mentions-legales" element={<div className="legal-page" style={{paddingTop:'100px'}}><div className="container glass-card"><h1>Mentions Légales</h1><p>Contenu en cours de mise à jour...</p><Link to="/">Retour</Link></div></div>} />
-          </Routes>
-        </AnimatePresence>
-        <Footer cities={citiesData} />
-      </div>
+      <AppContent citiesData={citiesData} />
     </Router>
+  );
+}
+
+function AppContent({ citiesData }) {
+  const [videoLoaded, setVideoLoaded] = useState(false);
+  const [minTimeElapsed, setMinTimeElapsed] = useState(false);
+  const location = useLocation();
+
+  // Reset loader on route change to hide new video initialization
+  useEffect(() => {
+    setVideoLoaded(false);
+    setMinTimeElapsed(false);
+    
+    // Failsafe & Minimum display time for the splash image
+    const timerMin = setTimeout(() => setMinTimeElapsed(true), 3000);
+    const failsafe = setTimeout(() => setVideoLoaded(true), 12000);
+    
+    return () => {
+      clearTimeout(timerMin);
+      clearTimeout(failsafe);
+    };
+  }, [location.pathname]);
+
+  const showOverlay = !videoLoaded || !minTimeElapsed;
+
+  return (
+    <div className="App">
+      <ScrollToTop />
+      <FullScreenLoader isVisible={showOverlay} />
+      <Navbar cities={citiesData} />
+      <AnimatePresence mode="wait">
+        <Routes location={location} key={location.pathname}>
+          <Route path="/" element={<HomePage cities={citiesData} onVideoLoaded={() => setVideoLoaded(true)} />} />
+          <Route path="/:cityId" element={<CityPage cities={citiesData} onVideoLoaded={() => setVideoLoaded(true)} />} />
+          <Route path="/mentions-legales" element={<div className="legal-page" style={{paddingTop:'100px'}}><div className="container glass-card"><h1>Mentions Légales</h1><p>Contenu en cours de mise à jour...</p><Link to="/">Retour</Link></div></div>} />
+        </Routes>
+      </AnimatePresence>
+      <Footer cities={citiesData} />
+    </div>
   );
 }
 

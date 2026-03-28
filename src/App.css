@@ -1596,3 +1596,110 @@
     width: min(calc(var(--logo-size) * 0.4), 100%) !important;
   }
 }
+/* Instagram Section */
+.instagram-section {
+  padding: 100px 0;
+  background-color: var(--navy-dark);
+  border-top: 1px solid var(--glass-border);
+}
+
+.insta-icon-wrapper {
+  background: var(--glass);
+  width: 80px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  border: 1px solid var(--glass-border);
+  margin-bottom: 10px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+
+.insta-handle-btn {
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  color: var(--primary);
+  text-decoration: none;
+  font-weight: 700;
+  transition: var(--transition);
+  padding: 8px 20px;
+  border-radius: 50px;
+  background: rgba(236, 189, 14, 0.05);
+  border: 1px solid rgba(236, 189, 14, 0.2);
+}
+
+.insta-handle-btn:hover {
+  background: var(--primary);
+  color: var(--navy-dark);
+  transform: translateY(-3px);
+  box-shadow: 0 5px 20px rgba(236, 189, 14, 0.3);
+}
+
+.insta-hero-container {
+  max-width: 1000px;
+  margin: 40px auto 0;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+  border: 4px solid var(--glass-border);
+  position: relative;
+}
+
+.insta-hero-link {
+  display: block;
+  position: relative;
+  width: 100%;
+}
+
+.insta-full-img {
+  width: 100%;
+  height: auto;
+  display: block;
+  transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.insta-full-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(1, 30, 49, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  backdrop-filter: blur(2px);
+}
+
+.insta-overlay-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  color: white;
+  font-weight: 900;
+  letter-spacing: 0.15em;
+  font-size: 1.2rem;
+}
+
+.insta-hero-link:hover .insta-full-overlay {
+  opacity: 1;
+}
+
+.insta-hero-link:hover .insta-full-img {
+  transform: scale(1.03);
+}
+
+@media (max-width: 768px) {
+  .insta-hero-container {
+    margin-top: 20px;
+    border-width: 2px;
+  }
+  
+  .insta-handle-btn {
+    font-size: 1.2rem;
+  }
+}
