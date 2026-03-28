@@ -604,6 +604,15 @@ function App() {
         { question: "Restaurant asiatique à Grenade (31) : quelles spécialités ?", answer: "Nous sommes fiers de vous proposer notre Pad Thaï traditionnel et nos plateaux signatures à Grenade." },
         { question: "Les produits sont-ils frais ?", answer: "La fraîcheur est notre priorité, tous nos poissons et légumes sont sélectionnés avec le plus grand soin." },
         { question: "Acceptez-vous les tickets restaurant ?", answer: "Oui, nous acceptons les titres restaurant ainsi que les principales cartes bancaires." }
+      ],
+      hours: [
+        { day: 'lundi', time: 'Fermé' },
+        { day: 'mardi', time: '12:00–14:30, 18:30–22:00' },
+        { day: 'mercredi', time: '12:00–14:30, 18:30–22:00' },
+        { day: 'jeudi', time: '12:00–14:30, 18:30–22:00' },
+        { day: 'vendredi', time: '12:00–14:30, 18:30–22:30' },
+        { day: 'samedi', time: '12:00–14:30, 18:30–22:30' },
+        { day: 'dimanche', time: '12:00–14:30, 19:00–22:00' }
       ]
     },
     {
