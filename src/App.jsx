@@ -137,9 +137,11 @@ const VideoBackground = ({ videoId, onLoaded }) => {
                 playPromise.catch(() => {});
               }
             }, 500);
-            if (onLoaded) onLoaded();
           },
           onStateChange: (event) => {
+            if (event.data === window.YT.PlayerState.PLAYING) {
+              if (onLoaded) onLoaded();
+            }
             if (event.data === window.YT.PlayerState.ENDED) {
               event.target.seekTo(0);
               event.target.playVideo();
@@ -186,10 +188,22 @@ const FullScreenLoader = ({ isVisible }) => (
         }}
       >
         <motion.div
-          animate={{ scale: [1, 1.1, 1], opacity: [0.5, 1, 0.5] }}
-          transition={{ repeat: Infinity, duration: 2 }}
+          animate={{ scale: [1, 1.05, 1], opacity: [0.8, 1, 0.8] }}
+          transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
+          style={{ position: 'relative', display: 'flex', flexDirection: 'column', alignItems: 'center' }}
         >
-          <ElephantLogo size={200} />
+          <ElephantLogo size={250} />
+          
+          <div style={{ marginTop: '40px', textAlign: 'center' }}>
+            <h2 style={{ color: 'var(--primary)', marginBottom: '15px', letterSpacing: '0.2em', fontSize: '1.2rem' }}>EXPÉRIENCE BOTNA...</h2>
+            <div style={{ width: '200px', height: '2px', backgroundColor: 'rgba(255,255,255,0.1)', position: 'relative', overflow: 'hidden', borderRadius: '10px' }}>
+              <motion.div 
+                animate={{ x: [-200, 200] }}
+                transition={{ repeat: Infinity, duration: 1.5, ease: "linear" }}
+                style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', background: 'linear-gradient(90deg, transparent, var(--primary), transparent)' }}
+              />
+            </div>
+          </div>
         </motion.div>
       </motion.div>
     )}
@@ -223,7 +237,7 @@ const LocationCard = ({ city }) => {
 const HomePage = ({ cities }) => {
   const [videoLoaded, setVideoLoaded] = useState(false);
   useEffect(() => {
-    const timer = setTimeout(() => setVideoLoaded(true), 2500); // Failsafe
+    const timer = setTimeout(() => setVideoLoaded(true), 6000); // Failsafe
     return () => clearTimeout(timer);
   }, []);
 
@@ -266,7 +280,7 @@ const CityPage = ({ cities }) => {
   const [videoLoaded, setVideoLoaded] = useState(false);
 
   useEffect(() => {
-    const timer = setTimeout(() => setVideoLoaded(true), 2500); // Failsafe
+    const timer = setTimeout(() => setVideoLoaded(true), 6000); // Failsafe
     return () => clearTimeout(timer);
   }, [cityId]);
 
