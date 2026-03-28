@@ -164,6 +164,38 @@ const VideoBackground = ({ videoId, onLoaded }) => {
   );
 };
 
+const FullScreenLoader = ({ isVisible }) => (
+  <AnimatePresence>
+    {isVisible && (
+      <motion.div
+        initial={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        transition={{ duration: 0.8 }}
+        style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          width: '100vw',
+          height: '100vh',
+          backgroundColor: 'var(--navy-dark)',
+          zIndex: 9999,
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          flexDirection: 'column'
+        }}
+      >
+        <motion.div
+          animate={{ scale: [1, 1.1, 1], opacity: [0.5, 1, 0.5] }}
+          transition={{ repeat: Infinity, duration: 2 }}
+        >
+          <ElephantLogo size={200} />
+        </motion.div>
+      </motion.div>
+    )}
+  </AnimatePresence>
+);
+
 // --- Page Components ---
 
 const LocationCard = ({ city }) => {
@@ -188,10 +220,18 @@ const LocationCard = ({ city }) => {
   );
 };
 
-const HomePage = ({ cities }) => (
+const HomePage = ({ cities }) => {
+  const [videoLoaded, setVideoLoaded] = useState(false);
+  useEffect(() => {
+    const timer = setTimeout(() => setVideoLoaded(true), 2500); // Failsafe
+    return () => clearTimeout(timer);
+  }, []);
+
+  return (
   <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+    <FullScreenLoader isVisible={!videoLoaded} />
     <header className="hero main-hero">
-      <VideoBackground videoId="h2V2mBBXgj4" />
+      <VideoBackground videoId="h2V2mBBXgj4" onLoaded={() => setVideoLoaded(true)} />
       <div className="hero-overlay"></div>
       <div className="hero-content">
         <motion.div
@@ -217,18 +257,26 @@ const HomePage = ({ cities }) => (
     <Reviews />
     <Maps />
   </motion.div>
-);
+  );
+};
 
 const CityPage = ({ cities }) => {
   const { cityId } = useParams();
   const city = cities.find(c => c.id === cityId);
+  const [videoLoaded, setVideoLoaded] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setVideoLoaded(true), 2500); // Failsafe
+    return () => clearTimeout(timer);
+  }, [cityId]);
 
   if (!city) return <div className="container" style={{padding:'200px 0', textAlign:'center'}}><h1>Page non trouvée</h1><Link to="/">Retour à l'accueil</Link></div>;
 
   return (
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="city-detail-page">
+      <FullScreenLoader isVisible={!videoLoaded} />
       <header className="hero">
-        <VideoBackground videoId="h2V2mBBXgj4" onLoaded={() => { }} />
+        <VideoBackground videoId="h2V2mBBXgj4" onLoaded={() => setVideoLoaded(true)} />
         <div className="hero-overlay"></div>
         <div className="hero-content">
           <motion.div
@@ -238,7 +286,6 @@ const CityPage = ({ cities }) => {
           >
             <ElephantLogo size={420} />
             <div className="city-hero-text">
-              <span className="section-label">{city.name.toUpperCase()}</span>
               <h1 className="city-title">{city.name}</h1>
               <p className="city-subtitle">{city.address}</p>
               <div className="city-actions" style={{ marginTop: '40px', justifyContent: 'center' }}>
@@ -255,28 +302,20 @@ const CityPage = ({ cities }) => {
       <section className="city-content-section">
         <div className="container">
           <div className="section-header">
-            <span className="section-label">La Carte</span>
             <h2>Notre Menu</h2>
           </div>
 
           <div className="carte-display">
             <div className="carte-embed">
               <div className="menu-page-container glass-card">
-                <span className="page-label">Recto / Thaï</span>
                 <img src={`/assets/menus/${city.pdf}-1.png`} alt="Menu Recto" style={{width:'100%', height:'auto', borderRadius:'15px'}} onError={(e)=>e.target.src='/thai.png'}/>
               </div>
 
               <div className="menu-page-container glass-card" style={{ marginTop: '40px' }}>
-                <span className="page-label">Verso / Sushis</span>
                 <img src={`/assets/menus/${city.pdf}-2.png`} alt="Menu Verso" style={{width:'100%', height:'auto', borderRadius:'15px'}} onError={(e)=>e.target.src='/sushi.png'}/>
               </div>
 
-              <div className="carte-info" style={{ marginTop: '40px' }}>
-                <p>Besoin de la version haute définition ?</p>
-                <a href={`/dépliant-prépa-${city.pdf}.pdf`} className="primary-btn" target="_blank" rel="noreferrer">
-                  TÉLÉCHARGER LE PDF COMPLET
-                </a>
-              </div>
+
             </div>
           </div>
 
