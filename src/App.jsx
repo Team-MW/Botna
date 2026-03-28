@@ -282,8 +282,24 @@ const CityPage = ({ cities }) => {
 
           <div className="city-map-section">
             <h2>Nous trouver à {city.name}</h2>
-            <div className="map-item">
-               <iframe title={city.name} width="100%" height="100%" frameBorder="0" style={{ border: 0 }} src={`https://www.google.com/maps?q=${encodeURIComponent(city.address)}&output=embed`} allowFullScreen></iframe>
+            <div style={{ display: 'grid', gridTemplateColumns: city.hours ? 'repeat(auto-fit, minmax(400px, 1fr))' : '1fr', gap: '30px' }}>
+              <div className="map-item">
+                 <iframe title={city.name} width="100%" height="100%" frameBorder="0" style={{ border: 0 }} src={`https://www.google.com/maps?q=${encodeURIComponent(city.address)}&output=embed`} allowFullScreen></iframe>
+              </div>
+              
+              {city.hours && (
+                <div className="city-hours glass-card" style={{ padding: '30px', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+                  <h3 style={{ color: 'var(--primary)', marginBottom: '25px', fontSize: '1.8rem', textAlign: 'center', fontFamily: 'var(--font-heading)' }}>Horaires d'ouverture</h3>
+                  <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '15px' }}>
+                    {city.hours.map((h, i) => (
+                      <li key={i} style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px dashed rgba(255,255,255,0.1)', paddingBottom: '10px', fontSize: '1.1rem' }}>
+                        <strong style={{ textTransform: 'capitalize', letterSpacing: '0.05em' }}>{h.day}</strong>
+                        <span style={{ color: h.time === 'Fermé' ? '#ef4444' : 'var(--white)', fontWeight: h.time === 'Fermé' ? 'bold' : 'normal' }}>{h.time}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
             </div>
           </div>
 
@@ -552,6 +568,15 @@ function App() {
         { question: "Existe-t-il un bon restaurant Thaï à Colomiers ?", answer: "BOTNA Colomiers mélange l'art délicat des sushis japonais avec les saveurs envoûtantes de la cuisine Thaïlandaise traditionnelle." },
         { question: "Proposez-vous la vente à emporter ?", answer: "Oui, tous nos plats sont disponibles en Click & Collect pour un voyage culinaire chez vous." },
         { question: "Y a-t-il des options végétariennes ?", answer: "Absolument, nous proposons une variété de makis et de plats thaïs adaptés aux régimes végétariens." }
+      ],
+      hours: [
+        { day: 'lundi', time: 'Fermé' },
+        { day: 'mardi', time: '12:00–14:30, 19:00–22:00' },
+        { day: 'mercredi', time: '12:00–14:30, 19:00–22:00' },
+        { day: 'jeudi', time: '12:00–14:30, 19:00–22:00' },
+        { day: 'vendredi', time: '12:00–14:30, 19:00–22:30' },
+        { day: 'samedi', time: '12:00–14:30, 19:00–22:30' },
+        { day: 'dimanche', time: '12:00–14:30, 18:30–22:00' }
       ]
     },
     {
@@ -561,6 +586,15 @@ function App() {
         { question: "Où trouver des saveurs asiatiques à Beauzelle ?", answer: "Notre restaurant à Beauzelle est l'adresse idéale pour les amateurs de gastronomie asiatique de qualité près de Blagnac." },
         { question: "Est-il facile de se garer ?", answer: "Le restaurant dispose de facilités de stationnement à proximité immédiate pour votre confort." },
         { question: "Quels sont les horaires ?", answer: "Nous vous accueillons tous les jours pour satisfaire vos envies de sushis et plats thaïlandais." }
+      ],
+      hours: [
+        { day: 'lundi', time: 'Fermé' },
+        { day: 'mardi', time: '12:00–14:00, 19:00–22:00' },
+        { day: 'mercredi', time: '12:00–14:00, 19:00–22:00' },
+        { day: 'jeudi', time: '12:00–14:00, 19:00–22:00' },
+        { day: 'vendredi', time: '12:00–14:00, 19:00–22:00' },
+        { day: 'samedi', time: '12:00–14:00, 19:00–22:00' },
+        { day: 'dimanche', time: '12:00–14:00, 19:00–22:00' }
       ]
     },
     {
