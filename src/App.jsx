@@ -299,11 +299,11 @@ const HomePage = ({ cities, onVideoLoaded }) => {
         </div>
       </div>
     </header>
-    <History />
+    <InstagramFeed />
     <Gallery />
     <Reviews />
-    <InstagramFeed />
     <Maps />
+    <History />
   </motion.div>
   );
 };
@@ -412,8 +412,9 @@ const CityPage = ({ cities, onVideoLoaded }) => {
         </div>
       </section>
       
-      <Gallery />
       <InstagramFeed />
+      <Gallery />
+      <History />
     </motion.div>
   );
 };
@@ -457,15 +458,16 @@ const History = () => (
   </section>
 );
 
+const GALLERY_IMAGES = [
+  { src: '/IMG_4175.jpg', title: 'Plateau Signature' },
+  { src: '/IMG_4297.jpg', title: 'Création Botna' },
+  { src: '/IMG_5200.jpg', title: 'Assortiment Sushi' },
+  { src: '/IMG_5293.jpg', title: 'Sélection du Chef' },
+  { src: '/IMG_4211 - copie.jpg', title: 'Trésor Mixte', bright: true },
+  { src: '/IMG_4328.jpg', title: 'Délices du Chef', bright: true },
+];
+
 const Gallery = () => {
-  const images = [
-    { src: '/IMG_4175.png', title: 'Plateau Signature' },
-    { src: '/IMG_4297.png', title: 'Création Botna' },
-    { src: '/IMG_5200.png', title: 'Assortiment Sushi' },
-    { src: '/IMG_5293.png', title: 'Sélection du Chef' },
-    { src: '/IMG_4211 - copie.png', title: 'Trésor Mixte', bright: true },
-    { src: '/IMG_4328.png', title: 'Délices du Chef', bright: true },
-  ];
   return (
     <section id="photos" className="gallery-section">
       <div className="container">
@@ -474,7 +476,7 @@ const Gallery = () => {
           <h2>Découvrez nos Photos</h2>
         </div>
         <div className="gallery-grid">
-          {images.map((img, index) => (
+          {GALLERY_IMAGES.map((img, index) => (
             <motion.div
               key={index}
               initial={{ opacity: 0, scale: 0.9 }}
@@ -576,7 +578,7 @@ const InstagramFeed = () => {
             className="insta-hero-link"
           >
             <img 
-              src="/instagram.png" 
+              src="/instagram.jpg" 
               alt="Instagram Botna Feed" 
               className="insta-full-img" 
               loading="lazy" 
@@ -775,6 +777,7 @@ function App() {
 
 function AppContent({ citiesData }) {
   const [videoLoaded, setVideoLoaded] = useState(false);
+  const [imagesLoaded, setImagesLoaded] = useState(false);
   const [minTimeElapsed, setMinTimeElapsed] = useState(false);
   const location = useLocation();
 
@@ -782,6 +785,49 @@ function AppContent({ citiesData }) {
   useEffect(() => {
     setVideoLoaded(false);
     setMinTimeElapsed(false);
+    setImagesLoaded(false);
+    
+    // Preload critical images
+    const imagesToPreload = [
+      ...GALLERY_IMAGES.map(i => i.src),
+      '/instagram.jpg',
+      '/logo-botna-ligne-1-scaled-1024x409.png',
+      '/logo-botna.png' // Elephant logo already in loader, keep it cached
+    ];
+    
+    // If on a city page, preload that city's menu images
+    const cityMatch = location.pathname.match(/^\/([^/]+)/);
+    if (cityMatch) {
+      const cityId = cityMatch[1];
+      const city = citiesData.find(c => c.id === cityId);
+      if (city) {
+        imagesToPreload.push(`/assets/menus/${city.pdf}-1.png`);
+        imagesToPreload.push(`/assets/menus/${city.pdf}-2.png`);
+      }
+    }
+
+    let loadedCount = 0;
+    const totalToLoad = imagesToPreload.length;
+
+    imagesToPreload.forEach(src => {
+      const img = new Image();
+      img.src = src;
+      img.onload = () => {
+        loadedCount++;
+        if (loadedCount >= totalToLoad) {
+          setImagesLoaded(true);
+        }
+      };
+      img.onerror = () => {
+        loadedCount++; // Still increment on error to not block forever
+        if (loadedCount >= totalToLoad) {
+          setImagesLoaded(true);
+        }
+      };
+    });
+
+    // Failsafe if images take too long
+    const imagesFailsafe = setTimeout(() => setImagesLoaded(true), 5000);
     
     // Ultra-optimized timers
     const timerMin = setTimeout(() => setMinTimeElapsed(true), 800);
@@ -790,10 +836,11 @@ function AppContent({ citiesData }) {
     return () => {
       clearTimeout(timerMin);
       clearTimeout(failsafe);
+      clearTimeout(imagesFailsafe);
     };
-  }, [location.pathname]);
+  }, [location.pathname, citiesData]);
 
-  const showOverlay = !videoLoaded || !minTimeElapsed;
+  const showOverlay = !videoLoaded || !minTimeElapsed || !imagesLoaded;
 
   return (
     <div className="App">
