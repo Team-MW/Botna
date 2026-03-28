@@ -54,7 +54,6 @@ const Navbar = ({ cities }) => {
 
   const navLinks = [
     ...cities.map(city => ({ name: city.name, path: `/${city.id}` })),
-    { name: 'Les photos', path: '/#photos' },
   ];
 
   return (
@@ -870,7 +869,50 @@ function AppContent({ citiesData }) {
         <Routes location={location} key={location.pathname}>
           <Route path="/" element={<HomePage cities={citiesData} onVideoLoaded={() => setVideoLoaded(true)} />} />
           <Route path="/:cityId" element={<CityPage cities={citiesData} onVideoLoaded={() => setVideoLoaded(true)} />} />
-          <Route path="/mentions-legales" element={<div className="legal-page" style={{paddingTop:'100px'}}><div className="container glass-card"><h1>Mentions Légales</h1><p>Contenu en cours de mise à jour...</p><Link to="/">Retour</Link></div></div>} />
+          <Route path="/mentions-legales" element={
+            <div className="legal-page" style={{ paddingTop: '150px', paddingBottom: '100px', minHeight: '100vh', background: 'var(--navy-dark)' }}>
+              <div className="container">
+                <div className="glass-card" style={{ padding: '60px', maxWidth: '900px', margin: '0 auto', lineHeight: '1.8' }}>
+                  <h1 style={{ color: 'var(--primary)', marginBottom: '40px', fontFamily: 'var(--font-heading)', fontSize: '3rem' }}>Mentions Légales</h1>
+                  
+                  <section style={{ marginBottom: '40px' }}>
+                    <h2 style={{ color: 'var(--primary)', fontSize: '1.5rem', marginBottom: '20px' }}>1. Éditeur du Site</h2>
+                    <p>Le site <strong>botna.fr</strong> est édité par la société <strong>LEAKSAL</strong>.</p>
+                    <ul style={{ listStyle: 'none', padding: 0 }}>
+                      <li><strong>Forme juridique :</strong> SAS, société par actions simplifiée</li>
+                      <li><strong>Dénomination commerciale :</strong> BOTNA THAI&SUSHIS</li>
+                      <li><strong>Siège social :</strong> 6 AVENUE DU PRESIDENT KENNEDY, 31330 GRENADE</li>
+                      <li><strong>SIRET :</strong> 941 595 779 00039</li>
+                      <li><strong>Code NAF/APE :</strong> 56.10C (Restauration de type rapide)</li>
+                    </ul>
+                  </section>
+
+                  <section style={{ marginBottom: '40px' }}>
+                    <h2 style={{ color: 'var(--primary)', fontSize: '1.5rem', marginBottom: '20px' }}>2. Hébergement</h2>
+                    <p>Le site est hébergé par <strong>Vercel Inc.</strong></p>
+                    <p>Adresse : 340 S Lemon Ave #4133, Walnut, CA 91789, États-Unis</p>
+                  </section>
+
+                  <section style={{ marginBottom: '40px' }}>
+                    <h2 style={{ color: 'var(--primary)', fontSize: '1.5rem', marginBottom: '20px' }}>3. Propriété Intellectuelle</h2>
+                    <p>L’ensemble du contenu de ce site (textes, images, graphismes, logo, icônes, etc.) est la propriété exclusive de la société LEAKSAL, sauf mentions contraires. Toute reproduction, distribution, modification, adaptation, retransmission ou publication, même partielle, de ces différents éléments est strictement interdite sans l'accord exprès par écrit de LEAKSAL.</p>
+                  </section>
+
+                  <section style={{ marginBottom: '40px' }}>
+                    <h2 style={{ color: 'var(--primary)', fontSize: '1.5rem', marginBottom: '20px' }}>4. Données Personnelles</h2>
+                    <p>Conformément au Règlement Général sur la Protection des Données (RGPD), vous disposez d'un droit d'accès, de rectification et de suppression des données vous concernant. Pour exercer ce droit, vous pouvez nous contacter directement à l'adresse du siège social située à Grenade.</p>
+                  </section>
+
+                  <div style={{ marginTop: '60px', textAlign: 'center' }}>
+                    <Link to="/" className="primary-btn" style={{ display: 'inline-flex', alignItems: 'center', gap: '10px' }}>
+                      <ChevronRight size={20} style={{ transform: 'rotate(180deg)' }} />
+                      RETOUR À L'ACCUEIL
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            </div>
+          } />
         </Routes>
       </AnimatePresence>
       <Footer cities={citiesData} />

@@ -49,8 +49,8 @@
 }
 
 .nav-links a {
-  font-weight: 500;
-  font-size: 0.95rem;
+  font-weight: 600;
+  font-size: 1.35rem;
   letter-spacing: 0.05em;
   opacity: 0.8;
 }
@@ -189,7 +189,7 @@
 
 .hero-locations-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 20px;
   width: 100%;
   margin-top: auto;
@@ -228,6 +228,10 @@
   border-radius: 70% 30% 50% 50% / 30% 30% 70% 70% !important;
 }
 
+.location-card:nth-child(5) {
+  border-radius: 40% 60% 40% 60% / 60% 40% 60% 40% !important;
+}
+
 .location-card:hover {
   border-color: var(--primary) !important;
   box-shadow: 0 0 40px rgba(236, 189, 14, 0.15);
@@ -249,6 +253,10 @@
 
 .location-card:nth-child(4):hover {
   border-radius: 60% 40% 60% 40% / 40% 40% 60% 60% !important;
+}
+
+.location-card:nth-child(5):hover {
+  border-radius: 50% 50% 50% 50% / 40% 60% 40% 60% !important;
 }
 
 .location-header {
