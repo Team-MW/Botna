@@ -244,7 +244,7 @@ const CityPage = ({ cities }) => {
               <div className="city-actions" style={{ marginTop: '40px', justifyContent: 'center' }}>
                 <a href={`tel:${city.phone.replace(/\s/g, '')}`} className="primary-btn large">
                   <Phone size={24} />
-                  APPELEZ-NOUS
+                  NOUS APPELER : {city.phone}
                 </a>
               </div>
             </div>
@@ -303,6 +303,9 @@ const CityPage = ({ cities }) => {
           </div>
         </div>
       </section>
+      
+      <Gallery />
+      
     </motion.div>
   );
 };
@@ -348,12 +351,12 @@ const History = () => (
 
 const Gallery = () => {
   const images = [
-    { src: '/thai.png', title: 'Crevette citron vert avec riz à l\'ail' },
-    { src: '/sushi.png', title: 'Maki & sushi' },
-    { src: '/thai.png', title: 'Labe de boeuf' },
-    { src: '/sushi.png', title: 'Plateau Signature' },
-    { src: '/thai.png', title: 'Pad Thai Traditionnel' },
-    { src: '/sushi.png', title: 'California Rolls' },
+    { src: '/IMG_4175.png', title: 'Plateau Signature' },
+    { src: '/IMG_4297.png', title: 'Création Botna' },
+    { src: '/IMG_5200.png', title: 'Assortiment Sushi' },
+    { src: '/IMG_5293.png', title: 'Sélection du Chef' },
+    { src: '/IMG_4211 - copie.png', title: 'Trésor Mixte', bright: true },
+    { src: '/IMG_4328.png', title: 'Délices du Chef', bright: true },
   ];
   return (
     <section id="photos" className="gallery-section">
@@ -373,7 +376,7 @@ const Gallery = () => {
               className="gallery-item"
             >
               <div className="gallery-img-wrapper">
-                <img src={img.src} alt={img.title} />
+                <img src={img.src} alt={img.title} style={img.bright ? { filter: 'brightness(1.5) contrast(1.1)' } : {}} />
               </div>
               <h3>{img.title}</h3>
             </motion.div>
@@ -509,10 +512,16 @@ const Footer = ({ cities }) => (
 
         <div className="footer-col">
           <h3>Contact</h3>
-          <p className="contact-info">
-            <Phone size={18} color="var(--primary)" />
-            <span>Tel : <a href="tel:0652277092">06 52 27 70 92</a></span>
-          </p>
+          <div className="contact-info" style={{ alignItems: 'flex-start' }}>
+            <Phone size={18} color="var(--primary)" style={{ marginTop: '5px' }} />
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+              {cities.map(city => (
+                <span key={city.id} style={{ fontSize: '0.9rem' }}>
+                  {city.name} : <a href={`tel:${city.phone.replace(/\s/g, '')}`}>{city.phone}</a>
+                </span>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
       <div className="footer-bottom">
@@ -546,7 +555,7 @@ function App() {
       ]
     },
     {
-      id: 'beauzelle', name: 'Beauzelle', address: '18 Bd de l\'Europe, 31700 Beauzelle', phone: '06 52 27 70 92', pdf: 'Beauzelle',
+      id: 'beauzelle', name: 'Beauzelle', address: '18 Bd de l\'Europe, 31700 Beauzelle', phone: '06 82 03 30 30', pdf: 'Beauzelle',
       faq: [
         { question: "Quel restaurant choisir à Beauzelle ?", answer: "Découvrez BOTNA Beauzelle : des bowls équilibrés, des sushis fins et des classiques de la cuisine Thaï dans un cadre moderne." },
         { question: "Où trouver des saveurs asiatiques à Beauzelle ?", answer: "Notre restaurant à Beauzelle est l'adresse idéale pour les amateurs de gastronomie asiatique de qualité près de Blagnac." },
@@ -555,7 +564,7 @@ function App() {
       ]
     },
     {
-      id: 'grenade', name: 'Grenade', address: '6 Av. du Président Kennedy, 31330 Grenade', phone: '06 52 27 70 92', pdf: 'Grenade',
+      id: 'grenade', name: 'Grenade', address: '6 Av. du Président Kennedy, 31330 Grenade', phone: '06 88 77 65 72', pdf: 'Grenade',
       faq: [
         { question: "Où sortir manger en famille à Grenade ?", answer: "BOTNA Grenade vous accueille pour un moment convivial autour de plats généreux, alliant sushis créatifs et classiques thaïlandais." },
         { question: "Restaurant asiatique à Grenade (31) : quelles spécialités ?", answer: "Nous sommes fiers de vous proposer notre Pad Thaï traditionnel et nos plateaux signatures à Grenade." },
@@ -564,12 +573,12 @@ function App() {
       ]
     },
     {
-      id: 'roquettes', name: 'Roquettes', address: '1 Rue Colette Besson, 31120 Roquettes', phone: '06 52 27 70 92', pdf: 'Lèguevin',
+      id: 'roquettes', name: 'Roquettes', address: '1 Rue Colette Besson, 31120 Roquettes', phone: '06 86 30 68 65', pdf: 'Lèguevin',
       faq: [
         { question: "Où savourer des sushis de qualité à Roquettes ?", answer: "BOTNA Roquettes est l'adresse incontournable pour les passionnés de poissons frais et de recettes japonaises authentiques." },
         { question: "Livraison de plats Thaï à Roquettes ?", answer: "Commandez vos plats préférés chez BOTNA Roquettes et emportez avec vous toutes les saveurs de l'Asie." },
         { question: "Peut-on commander pour un groupe ?", answer: "Nous réalisons des plateaux sur-mesure pour vos événements et réunions de groupe." },
-        { question: "Comment réserver ?", answer: "Vous pouvez nous appeler directement au 06 52 27 70 92 pour vos réservations ou commandes." }
+        { question: "Comment réserver ?", answer: "Vous pouvez nous appeler directement au 06 86 30 68 65 pour vos réservations ou commandes." }
       ]
     },
   ];
