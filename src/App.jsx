@@ -147,13 +147,11 @@ const VideoBackground = ({ videoId, onLoaded }) => {
           },
           onStateChange: (event) => {
             if (event.data === window.YT.PlayerState.PLAYING) {
-              // The "DOUILLE": 
-              // 1. Let the video play for 2 seconds behind opacity 0
-              // 2. Then show it and tell the global loader to fade out
+              // Now ultra-fast: 0.5s buffer
               setTimeout(() => {
                 setIsVideoVisible(true);
                 if (onLoadedRef.current) onLoadedRef.current();
-              }, 2000); 
+              }, 500); 
             }
             if (event.data === window.YT.PlayerState.ENDED) {
               event.target.seekTo(0);
@@ -196,38 +194,30 @@ const FullScreenLoader = ({ isVisible }) => (
           zIndex: 9999,
           display: 'flex',
           justifyContent: 'center',
-          alignItems: 'center',
-          overflow: 'hidden',
-          background: 'var(--navy-dark)'
+          alignItems: 'center'
         }}
       >
-        {/* The "Different" Image as background */}
-        <motion.div
-          initial={{ scale: 1.1 }}
-          animate={{ scale: 1 }}
-          transition={{ duration: 5 }}
+        {/* Performance optimized: No 24MB image, used high-end gradient instead */}
+        <div
           style={{
             position: 'absolute',
             top: 0,
             left: 0,
             width: '100%',
             height: '100%',
-            backgroundImage: 'url(/IMG_4175.png)',
-            backgroundPosition: 'center',
-            backgroundSize: 'cover',
-            opacity: 0.6,
-            filter: 'blur(5px)'
+            background: 'radial-gradient(circle at center, #012a45 0%, #011e31 100%)',
+            opacity: 0.95
           }}
         />
         
         {/* Central Logo for branding */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3 }}
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.5 }}
           style={{ position: 'relative', zIndex: 10, display: 'flex', flexDirection: 'column', alignItems: 'center' }}
         >
-          <ElephantLogo size={300} />
+          <ElephantLogo size={200} />
           <div style={{ marginTop: '20px' }}>
              <h2 style={{ color: BOTNA_YELLOW, letterSpacing: '0.4em', fontSize: '1.5rem', textTransform: 'uppercase' }}>Botna</h2>
           </div>
@@ -459,7 +449,13 @@ const Gallery = () => {
               className="gallery-item"
             >
               <div className="gallery-img-wrapper">
-                <img src={img.src} alt={img.title} style={img.bright ? { filter: 'brightness(1.5) contrast(1.1)' } : {}} />
+                <img 
+                  src={img.src} 
+                  alt={img.title} 
+                  loading="lazy" 
+                  decoding="async" 
+                  style={img.bright ? { filter: 'brightness(1.5) contrast(1.1)' } : {}} 
+                />
               </div>
               <h3>{img.title}</h3>
             </motion.div>
@@ -544,7 +540,13 @@ const InstagramFeed = () => {
             rel="noreferrer"
             className="insta-hero-link"
           >
-            <img src="/instagram.png" alt="Instagram Botna Feed" className="insta-full-img" />
+            <img 
+              src="/instagram.png" 
+              alt="Instagram Botna Feed" 
+              className="insta-full-img" 
+              loading="lazy" 
+              decoding="async" 
+            />
             <div className="insta-full-overlay">
               <div className="insta-overlay-content">
                 <Instagram size={50} color="#fff" />
@@ -746,9 +748,9 @@ function AppContent({ citiesData }) {
     setVideoLoaded(false);
     setMinTimeElapsed(false);
     
-    // Failsafe & Minimum display time for the splash image
-    const timerMin = setTimeout(() => setMinTimeElapsed(true), 3000);
-    const failsafe = setTimeout(() => setVideoLoaded(true), 12000);
+    // Ultra-optimized timers
+    const timerMin = setTimeout(() => setMinTimeElapsed(true), 800);
+    const failsafe = setTimeout(() => setVideoLoaded(true), 4000);
     
     return () => {
       clearTimeout(timerMin);
