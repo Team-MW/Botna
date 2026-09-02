@@ -307,6 +307,66 @@ const HomePage = ({ cities, onVideoLoaded }) => {
   );
 };
 
+const LeguevinSection = () => {
+  const [selectedImage, setSelectedImage] = useState(null);
+  const accueilImages = [
+    '/botna.jpeg',
+    '/botna2.jpeg',
+    '/acceuil.jpeg'
+  ];
+
+  const marqueeImages1 = [
+    '/assiette.jpeg',
+    '/bowls.jpeg',
+    '/nouriture.jpeg',
+    '/nouriture2.jpeg',
+    '/repasluxe.jpeg',
+    '/repasluxe2.jpeg'
+  ];
+
+  const marqueeImages2 = [
+    '/repasluxe4.jpeg',
+    '/repasluxe5.jpeg',
+    '/repasluxe6.jpeg',
+    '/repasluxe7.jpeg',
+    '/sushi.jpeg',
+    '/sushiluxe.jpeg'
+  ];
+
+  const scrollContent1 = [...marqueeImages1, ...marqueeImages1, ...marqueeImages1];
+  const scrollContent2 = [...marqueeImages2, ...marqueeImages2, ...marqueeImages2];
+
+  return (
+    <section className="leguevin-accueil-section">
+      <AnimatePresence>
+        {selectedImage && <ImageModal src={selectedImage} onClose={() => setSelectedImage(null)} />}
+      </AnimatePresence>
+      <div className="container">
+        <h2 className="leguevin-accueil-title">Nous vous accueillons</h2>
+        <div className="leguevin-accueil-images">
+          {accueilImages.map((src, i) => (
+            <img key={i} src={src} alt="Accueil Botna Léguevin" loading="lazy" onClick={() => setSelectedImage(src)} style={{ cursor: 'pointer' }} />
+          ))}
+        </div>
+      </div>
+      <div className="marquee-container">
+        <div className="marquee-content">
+          {scrollContent1.map((src, i) => (
+            <img key={`fwd-${i}`} src={src} alt="Délices Botna Léguevin" loading="lazy" onClick={() => setSelectedImage(src)} style={{ cursor: 'pointer' }} />
+          ))}
+        </div>
+      </div>
+      <div className="marquee-container" style={{ paddingTop: '0' }}>
+        <div className="marquee-content-reverse">
+          {scrollContent2.map((src, i) => (
+            <img key={`rev-${i}`} src={src} alt="Délices Botna Léguevin" loading="lazy" onClick={() => setSelectedImage(src)} style={{ cursor: 'pointer' }} />
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
+
 const CityPage = ({ cities, onVideoLoaded }) => {
   const { cityId } = useParams();
   const city = cities.find(c => c.id === cityId);
@@ -342,6 +402,8 @@ const CityPage = ({ cities, onVideoLoaded }) => {
           </motion.div>
         </div>
       </header>
+
+      {city.id === 'leguevin' && <LeguevinSection />}
 
       <section className="city-content-section">
         <div className="container">
